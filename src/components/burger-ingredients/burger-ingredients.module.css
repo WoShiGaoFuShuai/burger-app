@@ -1,0 +1,34 @@
+.wrapper {
+  padding-top: 40px;
+  flex-basis: 50%;
+}
+
+.ingredients__wrapper {
+  max-height: 716px;
+  overflow-y: auto;
+}
+
+.ingredients__wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ingredients__wrapper::-webkit-scrollbar-track {
+  background: var(--interface-input);
+}
+
+.ingredients__wrapper::-webkit-scrollbar-thumb {
+  background: var(--text-dark-gray);
+}
+
+.ingredients__wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dark-gray);
+  cursor: pointer;
+}
+
+.title {
+  margin-bottom: 20px;
+}
+
+.tabs {
+  margin-bottom: 40px;
+}
