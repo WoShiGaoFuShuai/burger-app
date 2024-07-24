@@ -1,6 +1,13 @@
 import React from "react";
 import cl from "./header-item.module.css";
-import { HeaderItemProps } from "@/components/header/interfaces.header";
+import { TIconTypes } from "@/components/header/types.header";
+
+interface HeaderItemProps {
+  icon: React.ElementType<{ type: TIconTypes }>;
+  iconType: TIconTypes;
+  text: string;
+  inactiveClass?: string;
+}
 
 const HeaderItem: React.FC<HeaderItemProps> = ({
   icon: Icon,

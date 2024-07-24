@@ -1,17 +1,29 @@
 import React from "react";
 import cl from "./ingredient-item.module.css";
-import { IngredientItemProps } from "@/components/burger-ingredients/interfaces.burger-ingredients";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { IngredientsData } from "@/types/interface.ingredients";
 
-const IngredientItem: React.FC<IngredientItemProps> = ({ array }) => {
+interface IngredientItemProps {
+  array: IngredientsData[];
+  ingredientItemClicked: (value: IngredientsData) => void;
+}
+
+const IngredientItem: React.FC<IngredientItemProps> = ({
+  array,
+  ingredientItemClicked,
+}) => {
   return (
     <>
       {array.map((item, index) => {
         return (
-          <li className={cl.ingredient__item} key={item._id}>
+          <li
+            onClick={() => ingredientItemClicked(item)}
+            className={cl.ingredient__item}
+            key={item._id}
+          >
             {item.__v > 0 && (
               <Counter count={item.__v} size="default" extraClass="m-1" />
             )}

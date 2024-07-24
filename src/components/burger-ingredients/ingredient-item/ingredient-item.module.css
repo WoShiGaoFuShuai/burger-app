@@ -8,6 +8,10 @@
   text-align: center;
 }
 
+.ingredient__item:hover {
+  cursor: pointer;
+}
+
 .ingredient__price {
   display: flex;
   gap: 8px;

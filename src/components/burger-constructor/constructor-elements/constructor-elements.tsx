@@ -3,8 +3,12 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ConstructorElementsProps } from "@/components/burger-constructor/interfaces.burger-constructor";
 import cl from "./constructor-elements.module.css";
+import { IngredientsData } from "@/types/interface.ingredients";
+
+interface ConstructorElementsProps {
+  ingredientsData: IngredientsData[];
+}
 
 const ConstructorElements: React.FC<ConstructorElementsProps> = ({
   ingredientsData,

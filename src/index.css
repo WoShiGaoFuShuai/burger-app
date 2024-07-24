@@ -4,3 +4,8 @@
   --interface-modal-bg: #1c1c21;
   --modal-edge: #4c4cff33;
 }
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}

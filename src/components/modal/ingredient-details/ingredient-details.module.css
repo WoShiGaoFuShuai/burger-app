@@ -1,0 +1,17 @@
+.info__wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.info__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 112px;
+}
+
+.name {
+  composes: text text_type_main-medium mb-8 from global;
+  text-align: center;
+}
