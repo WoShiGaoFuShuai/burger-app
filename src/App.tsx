@@ -5,6 +5,7 @@ import BurgerIngredients from "@/components/burger-ingredients/burger-ingredient
 import BurgerConstructor from "@/components/burger-constructor/burger-constructor";
 import PostService from "@/API/post-service";
 import { IngredientsData } from "@/types/interface.ingredients";
+import Loader from "@/components/ui/loader/loader";
 
 function App() {
   const [ingredientsData, setIngredientsData] = useState<IngredientsData[]>([]);
@@ -31,7 +32,7 @@ function App() {
   return (
     <div className="App">
       {isFetchLoading ? (
-        "LOADING"
+        <Loader text="Подождите, идёт загрузка" />
       ) : (
         <>
           <AppHeader />

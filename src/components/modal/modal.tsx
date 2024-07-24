@@ -13,7 +13,8 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ title, onClose, children }) => {
-  if (!rootElement) return null;
+  if (!rootElement)
+    throw new Error('The element with ID "root" was not found in the DOM.');
 
   return createPortal(
     <ModalOverlay onClose={onClose}>

@@ -8,7 +8,7 @@ interface IngredientDetailsProps {
 
 const IngredientDetails: React.FC<IngredientDetailsProps> = ({ item }) => {
   if (!item) {
-    return <div>Loading...</div>;
+    throw new Error("Element which was clicked do not have correct data");
   }
 
   const ingredientInfoTitles = [
