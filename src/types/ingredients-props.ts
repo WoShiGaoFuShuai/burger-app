@@ -1,5 +1,5 @@
 import { IngredientsData } from "@/types/interface.ingredients";
 
-export interface ConstructorElementsProps {
+export interface IngredientsProps {
   ingredientsData: IngredientsData[];
 }

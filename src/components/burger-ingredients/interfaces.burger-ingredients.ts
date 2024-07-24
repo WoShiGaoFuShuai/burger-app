@@ -1,7 +1,7 @@
-import { Data } from "@/utils/interfaces";
+import { IngredientsData } from "@/types/interface.ingredients";
 
 export interface IngredientItemProps {
-  array: Data[];
+  array: IngredientsData[];
 }
 
 export interface IngredientsGroupProps extends IngredientItemProps {

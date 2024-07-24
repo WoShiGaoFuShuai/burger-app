@@ -7,13 +7,13 @@ import { ConstructorElementsProps } from "@/components/burger-constructor/interf
 import cl from "./constructor-elements.module.css";
 
 const ConstructorElements: React.FC<ConstructorElementsProps> = ({
-  dataConstructor,
+  ingredientsData,
 }) => {
   return (
     <ul className={cl.items__wrapper}>
-      {dataConstructor.map((item, index) => {
+      {ingredientsData.map((item, index) => {
         const isFirst = index === 0;
-        const isLast = index === dataConstructor.length - 1;
+        const isLast = index === ingredientsData.length - 1;
 
         return (
           <li key={item._id} className={cl.item}>

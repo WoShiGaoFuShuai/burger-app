@@ -5,7 +5,13 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from "./constructor-submit.module.css";
 
-const ConstructorSubmit = () => {
+interface ConstructorSubmitProps {
+  setIsShowModal: (value: boolean) => void;
+}
+
+const ConstructorSubmit: React.FC<ConstructorSubmitProps> = ({
+  setIsShowModal,
+}) => {
   return (
     <section className={cl.submit__wrapper}>
       <div className={cl.submit__price}>
@@ -13,7 +19,12 @@ const ConstructorSubmit = () => {
         <CurrencyIcon type="primary" />
       </div>
 
-      <Button htmlType="button" type="primary" size="large">
+      <Button
+        onClick={() => setIsShowModal(true)}
+        htmlType="button"
+        type="primary"
+        size="large"
+      >
         Оформить заказ
       </Button>
     </section>

@@ -1,4 +1,6 @@
 :root {
   --interface-input: #2f2f37;
   --text-dark-gray: #8585ad;
+  --interface-modal-bg: #1c1c21;
+  --modal-edge: #4c4cff33;
 }
