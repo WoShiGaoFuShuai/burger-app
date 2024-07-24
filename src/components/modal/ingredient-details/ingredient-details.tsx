@@ -24,7 +24,7 @@ const IngredientDetails: React.FC<IngredientDetailsProps> = ({ item }) => {
       <p className={cl.name}>{item.name}</p>
       <ul className={cl.info__wrapper}>
         {ingredientInfoTitles.map((ingredient) => (
-          <li className={cl.info__item}>
+          <li key={ingredient.title} className={cl.info__item}>
             <span className="text text_type_main-default">
               {ingredient.title}
             </span>
