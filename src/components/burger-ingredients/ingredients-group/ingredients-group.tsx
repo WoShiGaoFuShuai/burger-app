@@ -15,7 +15,7 @@ const IngredientsGroup: React.FC<IngredientsGroupProps> = ({
   array,
   title,
 }) => {
-  const [isShowModal, setIsShowModal] = useState<Boolean>(false);
+  const [isShowModal, setIsShowModal] = useState(false);
   const [itemToShowInModal, setItemToShowInModal] =
     useState<IngredientsData | null>(null);
 

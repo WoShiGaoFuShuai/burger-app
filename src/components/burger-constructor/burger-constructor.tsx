@@ -7,8 +7,8 @@ import { IngredientsProps } from "@/types/ingredients-props";
 import Modal from "@/components/modal/modal";
 import OrderDetails from "@/components/modal/order-details/order-details";
 
-const BurgerConstructor: React.FC<IngredientsProps> = ({ ingredientsData }) => {
-  const [isShowModal, setIsShowModal] = useState<Boolean>(false);
+const BurgerConstructor: React.FC<IngredientsProps> = () => {
+  const [isShowModal, setIsShowModal] = useState(false);
 
   return (
     <section className={cl.wrapper}>

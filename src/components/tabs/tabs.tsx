@@ -1,7 +1,7 @@
 import React from "react";
-import cl from "./tabs-render.module.css";
+import cl from "./tabs.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TabsRenderProps } from "@/types/interfaces.tabs-render";
+import { TabsRenderProps } from "@/types/interfaces.tabs";
 
 const TabsRender: React.FC<TabsRenderProps> = ({
   tabs,
