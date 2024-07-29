@@ -1,0 +1,29 @@
+.header {
+  max-width: 1920px;
+  margin: 0 auto;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.header__nav {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.header__content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 16px 0;
+}
+
+.header__content_left {
+  display: flex;
+  gap: 8px;
+  margin-right: 112px;
+}
+
+.header__logo {
+  margin-right: auto;
+}

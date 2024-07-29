@@ -1,0 +1,13 @@
+.submit__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 40px;
+  padding: 0 16px;
+}
+
+.submit__price {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

@@ -1,0 +1,25 @@
+.ingredient__item {
+  position: relative;
+  padding: 0 16px;
+  display: flex;
+  gap: 4px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ingredient__item:hover {
+  cursor: pointer;
+}
+
+.ingredient__price {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 32px;
+}
+
+.ingredient__name {
+  composes: text text_type_main-small from global;
+  min-height: 48px;
+}

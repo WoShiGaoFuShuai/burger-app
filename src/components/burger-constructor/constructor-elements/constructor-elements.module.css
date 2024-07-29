@@ -1,0 +1,32 @@
+.items__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: end;
+  padding: 0 16px;
+  max-height: 656px;
+  overflow-y: auto;
+  margin-bottom: 40px;
+}
+
+.items__wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.items__wrapper::-webkit-scrollbar-track {
+  background: var(--interface-input);
+}
+
+.items__wrapper::-webkit-scrollbar-thumb {
+  background: var(--text-dark-gray);
+}
+
+.items__wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dark-gray);
+  cursor: pointer;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
