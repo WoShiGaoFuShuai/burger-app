@@ -1,13 +1,18 @@
 import React, { useState, useMemo } from "react";
 import cl from "@/components/burger-ingredients/burger-ingredients.module.css";
 import IngredientsGroup from "@/components/burger-ingredients/ingredients-group/ingredients-group";
-import { IngredientsProps } from "@/types/ingredients-props";
+// import { IngredientsProps } from "@/types/ingredients-props";
+import { RootState } from "@/services/reducer";
 
 import TabsRender from "@/components/tabs/tabs";
 import { tabsValues } from "@/utils/tabs-data";
+import { useSelector } from "react-redux";
 
-const BurgerIngredients: React.FC<IngredientsProps> = ({ ingredientsData }) => {
+const BurgerIngredients = () => {
   const [current, setCurrent] = useState("one");
+  const ingredientsData = useSelector(
+    (state: RootState) => state.ingredients.ingredients
+  );
 
   const buns = useMemo(
     () => ingredientsData.filter((item) => item.type === "bun"),

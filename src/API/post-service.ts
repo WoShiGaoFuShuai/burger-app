@@ -1,4 +1,10 @@
+import { IngredientsData } from "@/types/interface.ingredients";
 const URL: string = "https://norma.nomoreparties.space/api/ingredients";
+
+export interface ApiResponse {
+  success: boolean;
+  data: IngredientsData[];
+}
 
 export default class PostService {
   static async getAll() {
@@ -6,7 +12,7 @@ export default class PostService {
 
     if (!response.ok) throw new Error("Ответ сети был не ok.");
 
-    const data = await response.json();
+    const data: ApiResponse = await response.json();
     return data;
   }
 }
