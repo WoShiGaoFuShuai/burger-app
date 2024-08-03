@@ -36,9 +36,8 @@ function App() {
             <p className="text text_type_main-medium">Извините, нет данных</p>
           ) : (
             <>
-              {/* <BurgerIngredients ingredientsData={ingredients} /> */}
               <BurgerIngredients />
-              <BurgerConstructor ingredientsData={ingredients} />
+              <BurgerConstructor />
             </>
           )}
         </main>

@@ -1,18 +1,13 @@
-import { applyMiddleware, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { configureStore as createReduxToolkitStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducer";
-import thunk from "redux-thunk";
 
 export const configureStore = () => {
-  const store = createStore(
-    rootReducer,
-    composeWithDevTools(applyMiddleware(thunk))
-  );
-
-  return store;
+  return createReduxToolkitStore({
+    reducer: rootReducer,
+  });
 };
 
-// import {applyMiddleware} from "redux";
-// import {customMiddleware} from "./middleware/custom-middleware";
-// import thunk from "redux-thunk";
-// applyMiddleware(thunk)
+export type AppDispatch = ReturnType<typeof configureStore>["dispatch"];
+export type RootState = ReturnType<
+  ReturnType<typeof configureStore>["getState"]
+>;

@@ -1,16 +1,11 @@
-import { combineReducers } from "redux";
-import {
-  ingredientsReducer,
-  IngredientsState,
-} from "@/services/ingredients/reducer";
+import { combineSlices } from "@reduxjs/toolkit";
+import ingredientsReducer from "@/services/ingredients/reducer";
+import { burgerConstructorReducer } from "@/services/burger-constructor/reducer";
 
-export interface RootState {
-  ingredients: IngredientsState;
-}
-
-const rootReducer = combineReducers({
+export const rootReducer = combineSlices({
   ingredients: ingredientsReducer,
-  // Добавьте другие редьюсеры здесь
+  burgerConstructor: burgerConstructorReducer,
 });
 
+export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;

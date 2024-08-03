@@ -1,27 +1,18 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import cl from "@/components/burger-ingredients/burger-ingredients.module.css";
 import IngredientsGroup from "@/components/burger-ingredients/ingredients-group/ingredients-group";
-// import { IngredientsProps } from "@/types/ingredients-props";
-import { RootState } from "@/services/reducer";
 
 import TabsRender from "@/components/tabs/tabs";
 import { tabsValues } from "@/utils/tabs-data";
 import { useSelector } from "react-redux";
+import { ingredientsSelectors } from "@/services/ingredients/reducer";
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState("one");
-  const ingredientsData = useSelector(
-    (state: RootState) => state.ingredients.ingredients
-  );
 
-  const buns = useMemo(
-    () => ingredientsData.filter((item) => item.type === "bun"),
-    [ingredientsData]
-  );
-  const sauces = useMemo(
-    () => ingredientsData.filter((item) => item.type === "sauce"),
-    [ingredientsData]
-  );
+  const buns = useSelector(ingredientsSelectors.ingredientsBuns);
+  const sauces = useSelector(ingredientsSelectors.ingredientsSauces);
+  const mains = useSelector(ingredientsSelectors.ingredientsMains);
 
   return (
     <section className={cl.wrapper}>
@@ -33,6 +24,9 @@ const BurgerIngredients = () => {
       <div className={cl.ingredients__wrapper}>
         {/* //BUNS  */}
         <IngredientsGroup title="Булки" array={buns} />
+
+        {/* //MAIN  */}
+        <IngredientsGroup title="Начинки" array={mains} />
 
         {/* SAUCES  */}
         <IngredientsGroup title="Соусы" array={sauces} />

@@ -1,48 +1,65 @@
-import {
-  GET_INGREDIENTS_LOADING,
-  GET_INGREDIENTS_ERROR,
-  GET_INGREDIENTS_SUCCESS,
-} from "@/services/ingredients/actions";
 import { IngredientsData } from "@/types/interface.ingredients";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "@/services/store";
+
+import { loadIngredients } from "@/services/ingredients/actions";
 
 export interface IngredientsState {
   ingredients: IngredientsData[];
-  error: boolean;
+  error: null | string;
   loading: boolean;
 }
 
-const initialStore: IngredientsState = {
+const initialState: IngredientsState = {
   ingredients: [],
-  error: false,
+  error: null,
   loading: false,
 };
 
-export const ingredientsReducer = (state = initialStore, action: any) => {
-  switch (action.type) {
-    case GET_INGREDIENTS_LOADING:
-      return {
-        ...state,
-        loading: true,
-        error: false,
-      };
+const ingredientsSlice = createSlice({
+  name: "ingredients",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(loadIngredients.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(
+        loadIngredients.fulfilled,
+        (state, action: PayloadAction<IngredientsData[]>) => {
+          state.ingredients = action.payload;
+          state.error = null;
+          state.loading = false;
+        }
+      )
+      .addCase(loadIngredients.rejected, (state, action) => {
+        state.error = action.error.message || "Неизвестная ошибка";
+        state.loading = false;
+      });
+  },
+});
 
-    case GET_INGREDIENTS_SUCCESS:
-      return {
-        ...state,
-        ingredients: (action.payload as IngredientsData[]) || [],
-        error: false,
-        loading: false,
-      };
+export const ingredientsSelectors = {
+  getAllIngredients: (state: RootState) => state.ingredients,
+  ingredientsBuns: createSelector(
+    (state: RootState) => state.ingredients.ingredients,
+    (ingredients: IngredientsData[]) =>
+      ingredients.filter((item: IngredientsData) => item.type === "bun")
+  ),
 
-    case GET_INGREDIENTS_ERROR:
-      return {
-        ...state,
-        error: true,
-        loading: false,
-      };
+  ingredientsSauces: createSelector(
+    (state: RootState) => state.ingredients.ingredients,
+    (ingredients: IngredientsData[]) =>
+      ingredients.filter((item: IngredientsData) => item.type === "sauce")
+  ),
 
-    default: {
-      return state;
-    }
-  }
+  ingredientsMains: createSelector(
+    (state: RootState) => state.ingredients.ingredients,
+    (ingredients: IngredientsData[]) =>
+      ingredients.filter((item: IngredientsData) => item.type === "main")
+  ),
 };
+
+export default ingredientsSlice.reducer;

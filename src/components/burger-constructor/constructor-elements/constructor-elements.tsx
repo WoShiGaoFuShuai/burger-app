@@ -7,32 +7,47 @@ import cl from "./constructor-elements.module.css";
 import { IngredientsData } from "@/types/interface.ingredients";
 
 interface ConstructorElementsProps {
-  ingredientsData: IngredientsData[];
+  ingredientsConstructor: {
+    bun: IngredientsData;
+    ingredients: IngredientsData[];
+  };
 }
 
 const ConstructorElements: React.FC<ConstructorElementsProps> = ({
-  ingredientsData,
+  ingredientsConstructor,
 }) => {
   return (
     <ul className={cl.items__wrapper}>
-      {ingredientsData.map((item, index) => {
-        const isFirst = index === 0;
-        const isLast = index === ingredientsData.length - 1;
+      <li>
+        <ConstructorElement
+          type="top"
+          isLocked={true}
+          text={`${ingredientsConstructor.bun.name} (верх)`}
+          price={ingredientsConstructor.bun.price}
+          thumbnail={ingredientsConstructor.bun.image_mobile}
+        />
+      </li>
 
-        return (
-          <li key={item._id} className={cl.item}>
-            {!isFirst && !isLast && <DragIcon type="primary" />}
-            <ConstructorElement
-              type={isFirst ? "top" : isLast ? "bottom" : undefined}
-              isLocked={isFirst || isLast}
-              text={`${item.name}`}
-              price={item.price}
-              thumbnail={item.image_mobile}
-              extraClass="gg"
-            />
-          </li>
-        );
-      })}
+      {ingredientsConstructor.ingredients.map((item) => (
+        <li key={item._id}>
+          <DragIcon type="primary" />
+          <ConstructorElement
+            text={`${item.name}`}
+            price={item.price}
+            thumbnail={item.image_mobile}
+          />
+        </li>
+      ))}
+
+      <li>
+        <ConstructorElement
+          type="bottom"
+          isLocked={true}
+          text={`${ingredientsConstructor.bun.name} (низ)`}
+          price={ingredientsConstructor.bun.price}
+          thumbnail={ingredientsConstructor.bun.image_mobile}
+        />
+      </li>
     </ul>
   );
 };
