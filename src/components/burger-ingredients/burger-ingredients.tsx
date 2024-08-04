@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import cl from "@/components/burger-ingredients/burger-ingredients.module.css";
 import IngredientsGroup from "@/components/burger-ingredients/ingredients-group/ingredients-group";
 
@@ -14,6 +14,50 @@ const BurgerIngredients = () => {
   const sauces = useSelector(ingredientsSelectors.ingredientsSauces);
   const mains = useSelector(ingredientsSelectors.ingredientsMains);
 
+  const ingredientsWrapperRef = useRef<HTMLDivElement | null>(null);
+  const bunsRef = useRef<HTMLDivElement | null>(null);
+  const mainsRef = useRef<HTMLDivElement | null>(null);
+  const saucesRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const ingredientsWrapper = ingredientsWrapperRef.current;
+
+    if (!ingredientsWrapper) return;
+
+    const handleScroll = () => {
+      const bunsRect = bunsRef.current?.getBoundingClientRect();
+      const mainsRect = mainsRef.current?.getBoundingClientRect();
+      const saucesRect = saucesRef.current?.getBoundingClientRect();
+      const ingredientRef = ingredientsWrapper.getBoundingClientRect();
+
+      if (!bunsRect || !mainsRect || !saucesRect) return;
+
+      const distanceBuns = Math.abs(bunsRect.top - ingredientRef.top);
+      const distanceMains = Math.abs(mainsRect.top - ingredientRef.top);
+      const distanceSauces = Math.abs(saucesRect.top - ingredientRef.top);
+
+      const minimumDistance = Math.min(
+        distanceBuns,
+        distanceMains,
+        distanceSauces
+      );
+
+      if (minimumDistance === distanceBuns) {
+        setCurrent("one");
+      } else if (minimumDistance === distanceMains) {
+        setCurrent("two");
+      } else if (minimumDistance === distanceSauces) {
+        setCurrent("three");
+      }
+    };
+
+    ingredientsWrapper.addEventListener("scroll", handleScroll);
+
+    return () => {
+      ingredientsWrapper.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <section className={cl.wrapper}>
       <p className={`text text_type_main-large ${cl.title}`}>Соберите бургер</p>
@@ -21,15 +65,15 @@ const BurgerIngredients = () => {
       {/* TABS */}
       <TabsRender tabs={tabsValues} current={current} setCurrent={setCurrent} />
 
-      <div className={cl.ingredients__wrapper}>
+      <div ref={ingredientsWrapperRef} className={cl.ingredients__wrapper}>
         {/* //BUNS  */}
-        <IngredientsGroup title="Булки" array={buns} />
+        <IngredientsGroup ref={bunsRef} title="Булки" array={buns} />
 
         {/* //MAIN  */}
-        <IngredientsGroup title="Начинки" array={mains} />
+        <IngredientsGroup ref={mainsRef} title="Начинки" array={mains} />
 
         {/* SAUCES  */}
-        <IngredientsGroup title="Соусы" array={sauces} />
+        <IngredientsGroup ref={saucesRef} title="Соусы" array={sauces} />
       </div>
     </section>
   );
