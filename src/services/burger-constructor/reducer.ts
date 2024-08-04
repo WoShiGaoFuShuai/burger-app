@@ -1,109 +1,76 @@
-import { IngredientsData } from "@/types/interface.ingredients";
+import { IngredientsDataWithKey } from "@/types/interface.ingredients";
+import {
+  createSelector,
+  createSlice,
+  nanoid,
+  PayloadAction,
+} from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 export interface BurgerConstructorState {
-  bun: IngredientsData | null;
-  ingredients: IngredientsData[];
+  bun: IngredientsDataWithKey | null;
+  ingredients: IngredientsDataWithKey[];
 }
 
 const initialState: BurgerConstructorState = {
   bun: null,
-
-  // {
-  //   _id: "60666c42cc7b410027a1a9b1",
-  //   name: "Краторная булка N-200i (верх)",
-  //   type: "bun",
-  //   proteins: 80,
-  //   fat: 24,
-  //   carbohydrates: 53,
-  //   calories: 420,
-  //   price: 1255,
-  //   image: "https://code.s3.yandex.net/react/code/bun-02.png",
-  //   image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-  //   image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-  //   __v: 0,
-  // },
-  ingredients: [
-    // {
-    //   _id: "60666c42cc7b410027a1a9b9",
-    //   name: "Соус традиционный галактический",
-    //   type: "sauce",
-    //   proteins: 42,
-    //   fat: 24,
-    //   carbohydrates: 42,
-    //   calories: 99,
-    //   price: 15,
-    //   image: "https://code.s3.yandex.net/react/code/sauce-03.png",
-    //   image_mobile: "https://code.s3.yandex.net/react/code/sauce-03-mobile.png",
-    //   image_large: "https://code.s3.yandex.net/react/code/sauce-03-large.png",
-    //   __v: 0,
-    // },
-    // {
-    //   _id: "60666c42cc7b410027a1a9b4",
-    //   name: "Мясо бессмертных моллюсков Protostomia",
-    //   type: "main",
-    //   proteins: 433,
-    //   fat: 244,
-    //   carbohydrates: 33,
-    //   calories: 420,
-    //   price: 1337,
-    //   image: "https://code.s3.yandex.net/react/code/meat-02.png",
-    //   image_mobile: "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
-    //   image_large: "https://code.s3.yandex.net/react/code/meat-02-large.png",
-    //   __v: 0,
-    // },
-    // {
-    //   _id: "60666c42cc7b410027a1a9bc",
-    //   name: "Плоды Фалленианского дерева",
-    //   type: "main",
-    //   proteins: 20,
-    //   fat: 5,
-    //   carbohydrates: 55,
-    //   calories: 77,
-    //   price: 874,
-    //   image: "https://code.s3.yandex.net/react/code/sp_1.png",
-    //   image_mobile: "https://code.s3.yandex.net/react/code/sp_1-mobile.png",
-    //   image_large: "https://code.s3.yandex.net/react/code/sp_1-large.png",
-    //   __v: 0,
-    // },
-    // {
-    //   _id: "60666c42cc7b410027a1a9bb",
-    //   name: "Хрустящие минеральные кольца",
-    //   type: "main",
-    //   proteins: 808,
-    //   fat: 689,
-    //   carbohydrates: 609,
-    //   calories: 986,
-    //   price: 300,
-    //   image: "https://code.s3.yandex.net/react/code/mineral_rings.png",
-    //   image_mobile:
-    //     "https://code.s3.yandex.net/react/code/mineral_rings-mobile.png",
-    //   image_large:
-    //     "https://code.s3.yandex.net/react/code/mineral_rings-large.png",
-    //   __v: 0,
-    // },
-    // {
-    //   _id: "66",
-    //   name: "Хрустящие минеральные кольца",
-    //   type: "main",
-    //   proteins: 808,
-    //   fat: 689,
-    //   carbohydrates: 609,
-    //   calories: 986,
-    //   price: 300,
-    //   image: "https://code.s3.yandex.net/react/code/mineral_rings.png",
-    //   image_mobile:
-    //     "https://code.s3.yandex.net/react/code/mineral_rings-mobile.png",
-    //   image_large:
-    //     "https://code.s3.yandex.net/react/code/mineral_rings-large.png",
-    //   __v: 0,
-    // },
-  ],
+  ingredients: [],
 };
 
-export const burgerConstructorReducer = (state = initialState, action: any) => {
-  switch (action.type) {
-    default: {
-      return state;
-    }
-  }
+const burgerConstructorSlice = createSlice({
+  name: "burger-constructor",
+  initialState,
+  reducers: {
+    addConstructorItem: {
+      reducer: (state, action: PayloadAction<IngredientsDataWithKey>) => {
+        if (action.payload.type === "bun") {
+          state.bun = action.payload;
+          return;
+        }
+        state.ingredients.push(action.payload);
+      },
+      prepare: (newItem) => {
+        return { payload: { ...newItem, key: nanoid() } };
+      },
+    },
+
+    removeConstructorItem: (state, action: PayloadAction<string>) => {
+      state.ingredients = state.ingredients.filter(
+        (item) => item.key !== action.payload
+      );
+    },
+
+    moveConstructorIngredient: (
+      state,
+      action: PayloadAction<{ dragIndex: number; hoverIndex: number }>
+    ) => {
+      const { dragIndex, hoverIndex } = action.payload;
+      const [draggedItem] = state.ingredients.splice(dragIndex, 1);
+      state.ingredients.splice(hoverIndex, 0, draggedItem);
+    },
+  },
+});
+
+export const burgerConstructorSelectors = {
+  getAllBurgerConstructorState: (state: RootState) => state.burgerConstructor,
+  ingredientsBurgerConstructor: createSelector(
+    (state: RootState) => state.burgerConstructor.ingredients,
+    (ingredients) => ingredients
+  ),
 };
+
+export const {
+  addConstructorItem,
+  removeConstructorItem,
+  moveConstructorIngredient,
+} = burgerConstructorSlice.actions;
+
+export default burgerConstructorSlice.reducer;
+
+// const dragIngredient = state.ingredients[action.payload.dragIndex];
+
+// const newIngredients = [...state.ingredients];
+// newIngredients.splice(action.payload.dragIndex, 1);
+// newIngredients.splice(action.payload.hoverIndex, 0, dragIngredient);
+
+// state.ingredients = newIngredients;

@@ -8,6 +8,8 @@ import Loader from "@/components/ui/loader/loader";
 import { useDispatch, useSelector } from "react-redux";
 import { loadIngredients } from "@/services/ingredients/actions";
 import { RootState } from "@/services/reducer";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,16 +33,18 @@ function App() {
       <>
         <AppHeader />
 
-        <main className="main">
-          {noIngredients ? (
-            <p className="text text_type_main-medium">Извините, нет данных</p>
-          ) : (
-            <>
-              <BurgerIngredients />
-              <BurgerConstructor />
-            </>
-          )}
-        </main>
+        <DndProvider backend={HTML5Backend}>
+          <main className="main">
+            {noIngredients ? (
+              <p className="text text_type_main-medium">Извините, нет данных</p>
+            ) : (
+              <>
+                <BurgerIngredients />
+                <BurgerConstructor />
+              </>
+            )}
+          </main>
+        </DndProvider>
       </>
     </div>
   );

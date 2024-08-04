@@ -8,18 +8,58 @@ export interface IngredientsState {
   ingredients: IngredientsData[];
   error: null | string;
   loading: boolean;
+  previousBun: null | IngredientsData;
 }
 
 const initialState: IngredientsState = {
   ingredients: [],
   error: null,
   loading: false,
+  previousBun: null,
 };
 
 const ingredientsSlice = createSlice({
   name: "ingredients",
   initialState,
-  reducers: {},
+  reducers: {
+    addCounter: (state, action: PayloadAction<string>) => {
+      // find element to update
+      const itemToUpdate = state.ingredients.find(
+        (item) => item._id === action.payload
+      );
+
+      if (!itemToUpdate) return;
+
+      // index of the element
+      const indexItemToUpdate = state.ingredients.indexOf(itemToUpdate);
+
+      // check if it is a bun -add 2, if no - add 1
+      if (itemToUpdate.type === "bun") {
+        // check if we already added bun, if yes - remove counter from it before adding a new bun
+        if (state.previousBun) {
+          const indexPreviousBun = state.ingredients.findIndex(
+            (item) => item._id === state.previousBun!._id
+          );
+
+          state.ingredients[indexPreviousBun].__v = 0;
+        }
+        state.ingredients[indexItemToUpdate].__v += 2;
+
+        //put but to the store
+        state.previousBun = itemToUpdate;
+      } else {
+        state.ingredients[indexItemToUpdate].__v += 1;
+      }
+    },
+
+    subtractCounter: (state, action: PayloadAction<string>) => {
+      const indexSubtractItem = state.ingredients.findIndex(
+        (item) => item._id === action.payload
+      );
+
+      state.ingredients[indexSubtractItem].__v -= 1;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loadIngredients.pending, (state) => {
@@ -61,5 +101,7 @@ export const ingredientsSelectors = {
       ingredients.filter((item: IngredientsData) => item.type === "main")
   ),
 };
+
+export const { addCounter, subtractCounter } = ingredientsSlice.actions;
 
 export default ingredientsSlice.reducer;

@@ -5,38 +5,46 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientsData } from "@/types/interface.ingredients";
+import { useDrag } from "react-dnd";
 
 interface IngredientItemProps {
-  array: IngredientsData[];
+  item: IngredientsData;
+  index: number;
   ingredientItemClicked: (value: IngredientsData) => void;
 }
 
 const IngredientItem: React.FC<IngredientItemProps> = ({
-  array,
+  item,
+  index,
   ingredientItemClicked,
 }) => {
+  const [{ isDrag }, dragRef] = useDrag({
+    type: "ingredient-item",
+    item: item,
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging(),
+    }),
+  });
+
+  const border = isDrag ? "1px solid var(--accent)" : "";
+
   return (
-    <>
-      {array.map((item, index) => {
-        return (
-          <li
-            onClick={() => ingredientItemClicked(item)}
-            className={cl.ingredient__item}
-            key={item._id}
-          >
-            {item.__v > 0 && (
-              <Counter count={item.__v} size="default" extraClass="m-1" />
-            )}
-            <img src={item.image} alt={`${item.type} 0${index}`} />
-            <div className={cl.ingredient__price}>
-              <p className="text text_type_digits-default">{item.price}</p>
-              <CurrencyIcon type="primary" />
-            </div>
-            <p className={cl.ingredient__name}>{item.name}</p>
-          </li>
-        );
-      })}
-    </>
+    <li
+      onClick={() => ingredientItemClicked(item)}
+      className={cl.ingredient__item}
+      ref={dragRef}
+      style={{ border }}
+    >
+      {item.__v > 0 && (
+        <Counter count={item.__v} size="default" extraClass="m-1" />
+      )}
+      <img src={item.image} alt={`${item.type} 0${index}`} />
+      <div className={cl.ingredient__price}>
+        <p className="text text_type_digits-default">{item.price}</p>
+        <CurrencyIcon type="primary" />
+      </div>
+      <p className={cl.ingredient__name}>{item.name}</p>
+    </li>
   );
 };
 

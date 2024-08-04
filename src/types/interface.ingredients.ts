@@ -12,3 +12,7 @@ export interface IngredientsData {
   image_large: string;
   __v: number;
 }
+
+export interface IngredientsDataWithKey extends IngredientsData {
+  key: string;
+}

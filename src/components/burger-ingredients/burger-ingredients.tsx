@@ -25,6 +25,7 @@ const BurgerIngredients = () => {
     if (!ingredientsWrapper) return;
 
     const handleScroll = () => {
+      // when scroll check all positions of items
       const bunsRect = bunsRef.current?.getBoundingClientRect();
       const mainsRect = mainsRef.current?.getBoundingClientRect();
       const saucesRect = saucesRef.current?.getBoundingClientRect();
@@ -32,16 +33,20 @@ const BurgerIngredients = () => {
 
       if (!bunsRect || !mainsRect || !saucesRect) return;
 
+      // calculate difference
       const distanceBuns = Math.abs(bunsRect.top - ingredientRef.top);
       const distanceMains = Math.abs(mainsRect.top - ingredientRef.top);
       const distanceSauces = Math.abs(saucesRect.top - ingredientRef.top);
 
+      // find the smallest
       const minimumDistance = Math.min(
         distanceBuns,
         distanceMains,
         distanceSauces
       );
 
+      // depends which distance is the smallest to the top of the tabs,
+      // make this tab active
       if (minimumDistance === distanceBuns) {
         setCurrent("one");
       } else if (minimumDistance === distanceMains) {
@@ -64,7 +69,6 @@ const BurgerIngredients = () => {
 
       {/* TABS */}
       <TabsRender tabs={tabsValues} current={current} setCurrent={setCurrent} />
-
       <div ref={ingredientsWrapperRef} className={cl.ingredients__wrapper}>
         {/* //BUNS  */}
         <IngredientsGroup ref={bunsRef} title="Булки" array={buns} />

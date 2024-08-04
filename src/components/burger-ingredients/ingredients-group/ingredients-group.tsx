@@ -40,10 +40,14 @@ const IngredientsGroup = forwardRef<HTMLDivElement, IngredientsGroupProps>(
         <p className={`${cl.title} mb-6`}>{title}</p>
 
         <ul className={cl.ingredients__items_wrapper}>
-          <IngredientItem
-            ingredientItemClicked={ingredientItemClicked}
-            array={array}
-          />
+          {array.map((item, index) => (
+            <IngredientItem
+              item={item}
+              index={index}
+              ingredientItemClicked={ingredientItemClicked}
+              key={item._id}
+            />
+          ))}
         </ul>
 
         {isShowModal && (
@@ -56,44 +60,43 @@ const IngredientsGroup = forwardRef<HTMLDivElement, IngredientsGroupProps>(
   }
 );
 
-// const IngredientsGroup: forwardRef <IngredientsGroupProps> = ({
-//   array,
-//   title,
-// }) => {
-//   const [isShowModal, setIsShowModal] = useState(false);
-//   const dispatch = useDispatch();
-//   const itemToShowInModal = useSelector(
-//     itemShowInModalSelectors.getItemShowInModal
-//   );
-
-//   const ingredientItemClicked = (item: IngredientsData) => {
-//     dispatch(setItemShowInModal(item));
-//     setIsShowModal(true);
-//   };
-
-//   const closeModalWindow = () => {
-//     dispatch(clearItemShowInModal());
-//     setIsShowModal(false);
-//   };
-
-//   return (
-//     <div className="mb-10">
-//       <p className={`${cl.title} mb-6`}>{title}</p>
-
-//       <ul className={cl.ingredients__items_wrapper}>
-//         <IngredientItem
-//           ingredientItemClicked={ingredientItemClicked}
-//           array={array}
-//         />
-//       </ul>
-
-//       {isShowModal && (
-//         <Modal title="Детали ингредиента" onClose={closeModalWindow}>
-//           <IngredientDetails item={itemToShowInModal} />
-//         </Modal>
-//       )}
-//     </div>
-//   );
-// };
-
 export default IngredientsGroup;
+
+// const IngredientsGroup = forwardRef<HTMLDivElement, IngredientsGroupProps>(
+//   ({ array, title }, ref) => {
+//     const [isShowModal, setIsShowModal] = useState(false);
+//     const dispatch = useDispatch();
+//     const itemToShowInModal = useSelector(
+//       itemShowInModalSelectors.getItemShowInModal
+//     );
+
+//     const ingredientItemClicked = (item: IngredientsData) => {
+//       dispatch(setItemShowInModal(item));
+//       setIsShowModal(true);
+//     };
+
+//     const closeModalWindow = () => {
+//       dispatch(clearItemShowInModal());
+//       setIsShowModal(false);
+//     };
+
+//     return (
+//       <div ref={ref} className="mb-10">
+//         <p className={`${cl.title} mb-6`}>{title}</p>
+
+//         <ul className={cl.ingredients__items_wrapper}>
+//           <IngredientItem
+//             ingredientItemClicked={ingredientItemClicked}
+//             array={array}
+//           />
+//         </ul>
+
+//         {isShowModal && (
+//           <Modal title="Детали ингредиента" onClose={closeModalWindow}>
+//             <IngredientDetails item={itemToShowInModal} />
+//           </Modal>
+//         )}
+//       </div>
+//     );
+//   }
+// );

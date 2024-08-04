@@ -4,18 +4,13 @@ import ConstructorSubmit from "@/components/burger-constructor/constructor-submi
 import ConstructorElements from "@/components/burger-constructor/constructor-elements/constructor-elements";
 import Modal from "@/components/modal/modal";
 import OrderDetails from "@/components/modal/order-details/order-details";
-import { useSelector } from "react-redux";
-import { RootState } from "@/services/reducer";
 
 const BurgerConstructor = () => {
   const [isShowModal, setIsShowModal] = useState(false);
-  const ingredientsConstructor = useSelector(
-    (state: RootState) => state.burgerConstructor
-  );
 
   return (
     <section className={cl.wrapper}>
-      <ConstructorElements ingredientsConstructor={ingredientsConstructor} />
+      <ConstructorElements />
 
       <ConstructorSubmit setIsShowModal={setIsShowModal} />
 
