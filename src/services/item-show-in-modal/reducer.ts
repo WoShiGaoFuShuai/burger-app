@@ -21,7 +21,6 @@ const itemShowInModalSlice = createSlice({
       state.itemShowInModal = null;
     },
   },
-  // extraReducers: {},
 });
 
 export const itemShowInModalSelectors = {

@@ -6,14 +6,26 @@ import TabsRender from "@/components/tabs/tabs";
 import { tabsValues } from "@/utils/tabs-data";
 import { useSelector } from "react-redux";
 import { ingredientsSelectors } from "@/services/ingredients/reducer";
+import { scrollTabHandler } from "@/utils/scroll";
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState("one");
 
+  //click and scroll to the active tab
+  const handleClickTab = (value: string) => {
+    setCurrent(value);
+
+    if (value === "one") scrollTabHandler(bunsRef);
+    if (value === "two") scrollTabHandler(mainsRef);
+    if (value === "three") scrollTabHandler(saucesRef);
+  };
+
+  // passing data
   const buns = useSelector(ingredientsSelectors.ingredientsBuns);
   const sauces = useSelector(ingredientsSelectors.ingredientsSauces);
   const mains = useSelector(ingredientsSelectors.ingredientsMains);
 
+  // REFS for scrolling and changing active tabs
   const ingredientsWrapperRef = useRef<HTMLDivElement | null>(null);
   const bunsRef = useRef<HTMLDivElement | null>(null);
   const mainsRef = useRef<HTMLDivElement | null>(null);
@@ -68,7 +80,11 @@ const BurgerIngredients = () => {
       <p className={`text text_type_main-large ${cl.title}`}>Соберите бургер</p>
 
       {/* TABS */}
-      <TabsRender tabs={tabsValues} current={current} setCurrent={setCurrent} />
+      <TabsRender
+        tabs={tabsValues}
+        current={current}
+        setCurrent={handleClickTab}
+      />
       <div ref={ingredientsWrapperRef} className={cl.ingredients__wrapper}>
         {/* //BUNS  */}
         <IngredientsGroup ref={bunsRef} title="Булки" array={buns} />

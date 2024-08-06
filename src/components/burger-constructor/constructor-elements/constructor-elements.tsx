@@ -56,23 +56,6 @@ const ConstructorElements = () => {
             />
           ))}
         </>
-
-        //   <ConstructorElementDraggable
-        //   burgerConstructorIngredientsOnly={
-        //     burgerConstructorIngredients.ingredients
-        //   }
-        // />
-        /* {burgerConstructorIngredients.ingredients.map((item) => (
-            <li key={item.key} ref={drag} draggable>
-              <DragIcon type="primary" />
-              <ConstructorElement
-                text={`${item.name}`}
-                price={item.price}
-                thumbnail={item.image_mobile}
-                handleClose={() => handleRemoveItem(item)}
-              />
-            </li>
-          ))} */
       )}
 
       {burgerConstructorIngredients.bun === null ? (

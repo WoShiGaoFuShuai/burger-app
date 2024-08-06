@@ -33,7 +33,7 @@ const ingredientsSlice = createSlice({
       // index of the element
       const indexItemToUpdate = state.ingredients.indexOf(itemToUpdate);
 
-      // check if it is a bun -add 2, if no - add 1
+      // check if it is a bun then add 2, if no - add 1
       if (itemToUpdate.type === "bun") {
         // check if we already added bun, if yes - remove counter from it before adding a new bun
         if (state.previousBun) {

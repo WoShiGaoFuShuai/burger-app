@@ -53,9 +53,34 @@ const burgerConstructorSlice = createSlice({
 
 export const burgerConstructorSelectors = {
   getAllBurgerConstructorState: (state: RootState) => state.burgerConstructor,
-  ingredientsBurgerConstructor: createSelector(
-    (state: RootState) => state.burgerConstructor.ingredients,
-    (ingredients) => ingredients
+  getTotalPrice: createSelector(
+    (state: RootState) => state.burgerConstructor,
+    (burgerConstructor) => {
+      const totalPriceIngredients = burgerConstructor.ingredients.reduce(
+        (acc, current) => acc + current.price,
+        0
+      );
+
+      let totalPriceBuns = 0;
+      if (burgerConstructor.bun) {
+        totalPriceBuns = burgerConstructor.bun.price * 2;
+      }
+
+      return totalPriceIngredients + totalPriceBuns;
+    }
+  ),
+  getIdsForOrder: createSelector(
+    (state: RootState) => state.burgerConstructor,
+    (burgerConstructor) => {
+      if (burgerConstructor.bun) {
+        const allIds = [
+          burgerConstructor.bun._id,
+          ...burgerConstructor.ingredients.map((item) => item._id),
+          burgerConstructor.bun._id,
+        ];
+        return allIds;
+      }
+    }
   ),
 };
 
@@ -66,11 +91,3 @@ export const {
 } = burgerConstructorSlice.actions;
 
 export default burgerConstructorSlice.reducer;
-
-// const dragIngredient = state.ingredients[action.payload.dragIndex];
-
-// const newIngredients = [...state.ingredients];
-// newIngredients.splice(action.payload.dragIndex, 1);
-// newIngredients.splice(action.payload.hoverIndex, 0, dragIngredient);
-
-// state.ingredients = newIngredients;
