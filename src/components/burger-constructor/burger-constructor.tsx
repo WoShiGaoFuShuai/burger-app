@@ -5,7 +5,7 @@ import ConstructorElements from "@/components/burger-constructor/constructor-ele
 import Modal from "@/components/modal/modal";
 import OrderDetails from "@/components/modal/order-details/order-details";
 import Loader from "../ui/loader/loader";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "@/services/hooks";
 import {
   clearOrder,
   orderInfoSelectors,
@@ -13,8 +13,8 @@ import {
 
 const BurgerConstructor = () => {
   const [isShowModal, setIsShowModal] = useState(false);
-  const { loading } = useSelector(orderInfoSelectors.getOrdersInfoState);
-  const dispatch = useDispatch();
+  const { loading } = useAppSelector(orderInfoSelectors.getOrdersInfoState);
+  const dispatch = useAppDispatch();
 
   if (loading) {
     return <Loader text="Оформляем заказ, подождите"></Loader>;

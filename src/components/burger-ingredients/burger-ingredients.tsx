@@ -4,7 +4,7 @@ import IngredientsGroup from "@/components/burger-ingredients/ingredients-group/
 
 import TabsRender from "@/components/tabs/tabs";
 import { tabsValues } from "@/utils/tabs-data";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/services/hooks";
 import { ingredientsSelectors } from "@/services/ingredients/reducer";
 import { scrollTabHandler } from "@/utils/scroll";
 
@@ -21,9 +21,9 @@ const BurgerIngredients = () => {
   };
 
   // passing data
-  const buns = useSelector(ingredientsSelectors.ingredientsBuns);
-  const sauces = useSelector(ingredientsSelectors.ingredientsSauces);
-  const mains = useSelector(ingredientsSelectors.ingredientsMains);
+  const buns = useAppSelector(ingredientsSelectors.ingredientsBuns);
+  const sauces = useAppSelector(ingredientsSelectors.ingredientsSauces);
+  const mains = useAppSelector(ingredientsSelectors.ingredientsMains);
 
   // REFS for scrolling and changing active tabs
   const ingredientsWrapperRef = useRef<HTMLDivElement | null>(null);

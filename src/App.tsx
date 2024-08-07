@@ -5,16 +5,16 @@ import BurgerIngredients from "@/components/burger-ingredients/burger-ingredient
 import BurgerConstructor from "@/components/burger-constructor/burger-constructor";
 import Loader from "@/components/ui/loader/loader";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "@/services/hooks";
 import { loadIngredients } from "@/services/ingredients/actions";
 import { RootState } from "@/services/reducer";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { ingredients, loading } = useSelector(
+  const { ingredients, loading } = useAppSelector(
     (state: RootState) => state.ingredients
   );
 

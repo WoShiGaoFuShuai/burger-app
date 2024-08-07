@@ -10,13 +10,11 @@ export const sendOrder = createAsyncThunk<
   "create-order/sendOrder",
   async (orderData: OrderData, { rejectWithValue }) => {
     try {
-      console.log("actions, try");
       const response: OrderApiResponse = await OrderService.createOrder(
         orderData
       );
 
       if (response.success) {
-        console.log("actions, success");
         return {
           name: response.name,
           order: response.order,

@@ -10,7 +10,7 @@ import {
   setItemShowInModal,
   clearItemShowInModal,
 } from "@/services/item-show-in-modal/reducer";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "@/services/hooks";
 
 interface IngredientsGroupProps {
   array: IngredientsData[];
@@ -20,8 +20,8 @@ interface IngredientsGroupProps {
 const IngredientsGroup = forwardRef<HTMLDivElement, IngredientsGroupProps>(
   ({ array, title }, ref) => {
     const [isShowModal, setIsShowModal] = useState(false);
-    const dispatch = useDispatch();
-    const itemToShowInModal = useSelector(
+    const dispatch = useAppDispatch();
+    const itemToShowInModal = useAppSelector(
       itemShowInModalSelectors.getItemShowInModal
     );
 
