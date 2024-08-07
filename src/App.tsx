@@ -1,49 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "@/App.css";
 import AppHeader from "@/components/header/app-header";
 import BurgerIngredients from "@/components/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "@/components/burger-constructor/burger-constructor";
-import PostService from "@/API/post-service";
-import { IngredientsData } from "@/types/interface.ingredients";
 import Loader from "@/components/ui/loader/loader";
 
+import { useAppSelector, useAppDispatch } from "@/services/hooks";
+import { loadIngredients } from "@/services/ingredients/actions";
+import { RootState } from "@/services/reducer";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 function App() {
-  const [ingredientsData, setIngredientsData] = useState<IngredientsData[]>([]);
-  const [isFetchError, setIsFetchError] = useState(false);
-  const [isFetchLoading, setIsFetchLoading] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const { ingredients, loading } = useAppSelector(
+    (state: RootState) => state.ingredients
+  );
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsFetchLoading(true);
-        const response = await PostService.getAll();
-        setIngredientsData(response.data);
-      } catch (e) {
-        setIsFetchError(!isFetchError);
-        console.error("Failed to fetch data", e);
-      } finally {
-        setIsFetchLoading(false);
-      }
-    };
-
-    fetchData();
+    dispatch(loadIngredients());
   }, []);
+
+  if (loading) {
+    return <Loader text="Подождите, идёт загрузка" />;
+  }
+
+  const noIngredients = !loading && !ingredients.length;
 
   return (
     <div className="App">
-      {isFetchLoading ? (
-        <Loader text="Подождите, идёт загрузка" />
-      ) : (
-        <>
-          <AppHeader />
+      <>
+        <AppHeader />
 
+        <DndProvider backend={HTML5Backend}>
           <main className="main">
-            <BurgerIngredients ingredientsData={ingredientsData} />
-
-            <BurgerConstructor ingredientsData={ingredientsData} />
+            {noIngredients ? (
+              <p className="text text_type_main-medium">Извините, нет данных</p>
+            ) : (
+              <>
+                <BurgerIngredients />
+                <BurgerConstructor />
+              </>
+            )}
           </main>
-        </>
-      )}
+        </DndProvider>
+      </>
     </div>
   );
 }
