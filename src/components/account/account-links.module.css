@@ -1,0 +1,15 @@
+.links_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  max-width: 320px;
+}
+
+.links__main_item {
+  min-height: 64px;
+  align-content: center;
+}
+
+.link {
+  cursor: pointer;
+}

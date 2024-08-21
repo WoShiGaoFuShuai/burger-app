@@ -1,51 +1,69 @@
 import React, { useEffect } from "react";
 import "@/App.css";
 import AppHeader from "@/components/header/app-header";
-import BurgerIngredients from "@/components/burger-ingredients/burger-ingredients";
-import BurgerConstructor from "@/components/burger-constructor/burger-constructor";
+import { Routes, Route } from "react-router-dom";
+import {
+  HomePage,
+  LoginPage,
+  RegistrationPage,
+  ForgotPasswordPage,
+  ResetPasswordPage,
+  ProfilePage,
+  NotFoundPage,
+} from "@/pages";
+import { useAppDispatch, useAppSelector } from "@/services/hooks";
+import { getUser } from "@/services/auth/actions";
 import Loader from "@/components/ui/loader/loader";
-
-import { useAppSelector, useAppDispatch } from "@/services/hooks";
-import { loadIngredients } from "@/services/ingredients/actions";
-import { RootState } from "@/services/reducer";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { authSelectors } from "./services/auth/reducer";
+import { getAccessToken } from "@/utils/local-storage";
+import ProtectedRoute from "@/components/protected-routes/protected-route/protected-route";
+import GuestRoute from "@/components/protected-routes/guest-route/guest-route";
+import ResetPasswordGuard from "@/components/protected-routes/guards/reset-password-guard/reset-password-guard";
 
 function App() {
   const dispatch = useAppDispatch();
-
-  const { ingredients, loading } = useAppSelector(
-    (state: RootState) => state.ingredients
-  );
+  const { loading, loadingText } = useAppSelector(authSelectors.getAuthState);
 
   useEffect(() => {
-    dispatch(loadIngredients());
+    const accessToken = getAccessToken();
+
+    if (!accessToken) return;
+
+    dispatch(getUser(accessToken));
   }, []);
 
   if (loading) {
-    return <Loader text="Подождите, идёт загрузка" />;
+    return <Loader text={loadingText} />;
   }
-
-  const noIngredients = !loading && !ingredients.length;
 
   return (
     <div className="App">
-      <>
-        <AppHeader />
+      <AppHeader />
 
-        <DndProvider backend={HTML5Backend}>
-          <main className="main">
-            {noIngredients ? (
-              <p className="text text_type_main-medium">Извините, нет данных</p>
-            ) : (
-              <>
-                <BurgerIngredients />
-                <BurgerConstructor />
-              </>
-            )}
-          </main>
-        </DndProvider>
-      </>
+      <Routes>
+        <Route path="/" element={<HomePage />}></Route>
+        <Route
+          path="/login"
+          element={<GuestRoute element={<LoginPage />} />}
+        ></Route>
+        <Route
+          path="/register"
+          element={<GuestRoute element={<RegistrationPage />} />}
+        ></Route>
+        <Route
+          path="/forgot-password"
+          element={<GuestRoute element={<ForgotPasswordPage />} />}
+        ></Route>
+        <Route
+          path="/reset-password"
+          element={<ResetPasswordGuard element={<ResetPasswordPage />} />}
+        ></Route>
+        <Route
+          path="/profile"
+          element={<ProtectedRoute element={<ProfilePage />} />}
+        ></Route>
+        <Route path="*" element={<NotFoundPage />}></Route>
+      </Routes>
     </div>
   );
 }

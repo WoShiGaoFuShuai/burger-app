@@ -6,7 +6,7 @@ export interface ApiResponse {
   data: IngredientsData[];
 }
 
-export default class PostService {
+export default class IngredientsService {
   static async getAll() {
     const response = await fetch(URL);
 

@@ -3,4 +3,9 @@
   padding: 16px 20px;
   gap: 8px;
   border-radius: 40px;
+  text-decoration: none;
+}
+
+.header__item_link:visited {
+  color: inherit;
 }
