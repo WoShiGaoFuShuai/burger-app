@@ -18,37 +18,21 @@ const AppHeader = () => {
   if (user?.name) {
     textCabinet = user.name;
   }
+  //
 
   return (
     <header className={cl.header}>
       <nav className={cl.header__nav}>
         <ul className={cl.header__content}>
           <div className={cl.header__content_left}>
-            <HeaderItem
-              icon={BurgerIcon}
-              iconType="primary"
-              text="Конструктор"
-              path="/"
-            />
-            <HeaderItem
-              icon={ListIcon}
-              iconType="secondary"
-              text="Лента заказов"
-              inactiveClass="text_color_inactive"
-              path="/"
-            />
+            <HeaderItem icon={BurgerIcon} text="Конструктор" path="/" />
+            <HeaderItem icon={ListIcon} text="Лента заказов" path="/no-path" />
           </div>
 
           <li className={cl.header__logo}>
             <Logo />
           </li>
-          <HeaderItem
-            icon={ProfileIcon}
-            iconType="secondary"
-            text={textCabinet}
-            inactiveClass="text_color_inactive"
-            path="/profile"
-          />
+          <HeaderItem icon={ProfileIcon} text={textCabinet} path="/profile" />
         </ul>
       </nav>
     </header>

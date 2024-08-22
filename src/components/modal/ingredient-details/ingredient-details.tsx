@@ -8,7 +8,7 @@ interface IngredientDetailsProps {
 
 const IngredientDetails: React.FC<IngredientDetailsProps> = ({ item }) => {
   if (!item) {
-    throw new Error("Element which was clicked do not have correct data");
+    return null;
   }
 
   const ingredientInfoTitles = [
@@ -19,17 +19,17 @@ const IngredientDetails: React.FC<IngredientDetailsProps> = ({ item }) => {
   ];
 
   return (
-    <div>
+    <div className={cl.details__wrapper}>
       <img className="mb-4" src={item.image_large} alt="Ingredient" />
       <p className={cl.name}>{item.name}</p>
       <ul className={cl.info__wrapper}>
         {ingredientInfoTitles.map((ingredient) => (
           <li key={ingredient.title} className={cl.info__item}>
-            <span className="text text_type_main-default">
+            <span className="text text_type_main-default text_color_inactive">
               {ingredient.title}
             </span>
 
-            <span className="text text_type_digits-default">
+            <span className="text text_type_digits-default text_color_inactive">
               {item[ingredient.type as keyof IngredientsData]}
             </span>
           </li>

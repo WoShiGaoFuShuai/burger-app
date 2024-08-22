@@ -6,6 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientsData } from "@/types/interface.ingredients";
 import { useDrag } from "react-dnd";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface IngredientItemProps {
   item: IngredientsData;
@@ -27,10 +28,17 @@ const IngredientItem: React.FC<IngredientItemProps> = ({
   });
 
   const border = isDrag ? "1px solid var(--accent)" : "";
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleClick = () => {
+    ingredientItemClicked(item);
+    navigate(`/ingredients/${item._id}`, { state: { bg: location } });
+  };
 
   return (
     <li
-      onClick={() => ingredientItemClicked(item)}
+      onClick={handleClick}
       className={cl.ingredient__item}
       ref={dragRef}
       style={{ border }}

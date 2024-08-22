@@ -41,6 +41,7 @@ const LoginPage = () => {
       if (response.success) {
         const redirectAfterLogin = getLsItem("redirectAfterLogin") ?? "/";
         removeLsItem("redirectAfterLogin");
+        removeLsItem("resetPasswordAccess");
         navigate(`${redirectAfterLogin}`);
       }
     } catch (error) {

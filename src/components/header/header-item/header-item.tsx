@@ -1,29 +1,36 @@
 import React from "react";
 import cl from "./header-item.module.css";
 import { TIconTypes } from "@/components/header/types.header";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 interface HeaderItemProps {
   icon: React.ElementType<{ type: TIconTypes }>;
-  iconType: TIconTypes;
   text: string;
-  inactiveClass?: string;
   path: string;
 }
 
-const HeaderItem: React.FC<HeaderItemProps> = ({
-  icon: Icon,
-  iconType,
-  text,
-  inactiveClass,
-  path,
-}) => {
+const HeaderItem: React.FC<HeaderItemProps> = ({ icon: Icon, text, path }) => {
   return (
     <li>
-      <Link to={path} className={cl.header__item_link}>
-        <Icon type={iconType} />
-        <p className={`text text_type_main-default ${inactiveClass}`}>{text}</p>
-      </Link>
+      <NavLink
+        to={path}
+        className={({ isActive }) =>
+          `${cl.header__item_link} ${isActive ? cl.active : ""}`
+        }
+      >
+        {({ isActive }) => (
+          <>
+            <Icon type={isActive ? "primary" : "secondary"} />
+            <p
+              className={`text text_type_main-default ${
+                isActive ? "" : "text_color_inactive"
+              }`}
+            >
+              {text}
+            </p>
+          </>
+        )}
+      </NavLink>
     </li>
   );
 };

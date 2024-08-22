@@ -1,5 +1,6 @@
 import React from "react";
 import cl from "./not-found.module.css";
+import { Link } from "react-router-dom";
 
 const NotFoundPage = () => {
   return (
@@ -15,9 +16,9 @@ const NotFoundPage = () => {
 
         <p className="text text_type_main-small">
           проверьте адрес или перейдите{" "}
-          <a className="link__accent" href="">
+          <Link className="link__accent" to="/">
             на главную
-          </a>
+          </Link>
         </p>
       </div>
     </div>

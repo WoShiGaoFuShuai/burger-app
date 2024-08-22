@@ -9,3 +9,7 @@
 .header__item_link:visited {
   color: inherit;
 }
+
+.header__item_link.active {
+  color: var(--white);
+}

@@ -37,13 +37,9 @@ const ProfilePage = () => {
     }
   };
 
-  const handleProfileClick = () => {
-    console.log("Переход в профиль");
-  };
+  const handleProfileClick = () => {};
 
-  const handleOrderHistoryClick = () => {
-    console.log("Переход в историю заказов");
-  };
+  const handleOrderHistoryClick = () => {};
 
   const handleLogoutClick = () => {
     const refreshToken = getRefreshToken();
