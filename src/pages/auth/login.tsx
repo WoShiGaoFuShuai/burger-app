@@ -8,13 +8,13 @@ import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { loginUser } from "@/services/auth/actions";
 import { authSelectors } from "@/services/auth/reducer";
 import Loader from "@/components/ui/loader/loader";
-import { getLsItem, removeLsItem } from "@/utils/local-storage";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { loading, loadingText } = useAppSelector(authSelectors.getAuthState);
+  const location = useLocation();
 
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
@@ -39,10 +39,8 @@ const LoginPage = () => {
       const response = await dispatch(loginUser(formData)).unwrap();
 
       if (response.success) {
-        const redirectAfterLogin = getLsItem("redirectAfterLogin") ?? "/";
-        removeLsItem("redirectAfterLogin");
-        removeLsItem("resetPasswordAccess");
-        navigate(`${redirectAfterLogin}`);
+        const redirectPath = location.state.from.pathname ?? "/";
+        return navigate(redirectPath);
       }
     } catch (error) {
       console.error(error);

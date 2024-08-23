@@ -29,6 +29,7 @@ import {
 } from "./services/item-show-in-modal/reducer";
 import { IngredientsData } from "./types/interface.ingredients";
 import { getSsItem, removeSsItem } from "./utils/session-storage";
+import { loadIngredients } from "./services/ingredients/actions";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -48,6 +49,7 @@ function App() {
     navigate(-1);
   };
 
+  // logic for showing popup even after reloading a page
   useEffect(() => {
     let sessionItemInModal = getSsItem("itemInModal");
     if (sessionItemInModal) {
@@ -63,6 +65,11 @@ function App() {
     if (!accessToken) return;
 
     dispatch(getUser(accessToken));
+  }, []);
+
+  //Loading ingredients once
+  useEffect(() => {
+    dispatch(loadIngredients());
   }, []);
 
   if (loading) {

@@ -3,7 +3,6 @@ import {
   RegisterApiResponse,
   UserAuthInterface,
   UserAuthLogin,
-  SuccessUserApiResponse,
   UpdateUserInfoRequestPayload,
 } from "@/utils/auth";
 import AuthService from "@/API/auth-service";
@@ -13,19 +12,11 @@ export const registerUser = createAsyncThunk<
   UserAuthInterface,
   { rejectValue: string }
 >("auth/register", async (formData: UserAuthInterface, { rejectWithValue }) => {
-  try {
-    const response = await AuthService.registerRequest(formData);
+  const response = await AuthService.registerRequest(formData);
 
-    if (!response.success) throw new Error("Failed to register user");
+  if (!response.success) return rejectWithValue("Failed to register user");
 
-    return response;
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message);
-      return rejectWithValue(error.message);
-    }
-    throw error;
-  }
+  return response;
 });
 
 export const getUser = createAsyncThunk<
@@ -33,24 +24,14 @@ export const getUser = createAsyncThunk<
   string,
   { rejectValue: string }
 >("auth/getUser", async (accessToken: string, { rejectWithValue }) => {
-  try {
-    const response = await AuthService.getUserRequest(accessToken);
+  const response = await AuthService.getUserRequest(accessToken);
 
-    if (response?.success) {
-      return {
-        email: response.user.email,
-        name: response.user.name,
-      };
-    } else {
-      throw new Error("Failed to find user");
-    }
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error);
-      return rejectWithValue(error.message);
-    }
-    throw error;
-  }
+  if (!response?.success) return rejectWithValue("Failed to find user");
+
+  return {
+    email: response.user.email,
+    name: response.user.name,
+  };
 });
 
 export const logoutUser = createAsyncThunk<
@@ -58,15 +39,9 @@ export const logoutUser = createAsyncThunk<
   string,
   { rejectValue: string }
 >("auth/logoutUser", async (refreshToken: string, { rejectWithValue }) => {
-  try {
-    await AuthService.logoutRequest(refreshToken);
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error);
-      return rejectWithValue(error.message);
-    }
-    throw error;
-  }
+  const response = await AuthService.logoutRequest(refreshToken);
+
+  if (!response.success) return rejectWithValue("Failed to log out");
 });
 
 export const loginUser = createAsyncThunk<
@@ -74,19 +49,9 @@ export const loginUser = createAsyncThunk<
   UserAuthLogin,
   { rejectValue: string }
 >("auth/loginUser", async (formData: UserAuthLogin, { rejectWithValue }) => {
-  try {
-    const response = await AuthService.loginRequest(formData);
-
-    if (!response.success) throw Error("Failed to log in");
-
-    return response;
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error);
-      return rejectWithValue(error.message);
-    }
-    return rejectWithValue("Unknown error occurred");
-  }
+  const response = await AuthService.loginRequest(formData);
+  if (!response.success) return rejectWithValue("Failed to log in");
+  return response;
 });
 
 export const updateUserInfo = createAsyncThunk<
@@ -96,21 +61,13 @@ export const updateUserInfo = createAsyncThunk<
 >(
   "auth/updateUserInfo",
   async ({ newInfo, accessToken }, { rejectWithValue }) => {
-    try {
-      const response = await AuthService.updateUserInfoRequest({
-        newInfo,
-        accessToken,
-      });
+    const response = await AuthService.updateUserInfoRequest({
+      newInfo,
+      accessToken,
+    });
 
-      if (!response.success) throw Error("Failed to update user info");
+    if (!response.success) return rejectWithValue("Failed to update user info");
 
-      return response.user;
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error);
-        return rejectWithValue(error.message);
-      }
-      return rejectWithValue("Unknown error occurred");
-    }
+    return response.user;
   }
 );

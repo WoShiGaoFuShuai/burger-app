@@ -10,27 +10,17 @@ export const sendOrder = createAsyncThunk<
 >(
   "create-order/sendOrder",
   async (orderData: OrderData, { rejectWithValue }) => {
-    try {
-      const accessToken = getAccessToken() || "";
-      const response: OrderApiResponse = await OrderService.createOrder(
-        orderData,
-        accessToken
-      );
+    const accessToken = getAccessToken() || "";
+    const response: OrderApiResponse = await OrderService.createOrder(
+      orderData,
+      accessToken
+    );
 
-      if (response.success) {
-        return {
-          name: response.name,
-          order: response.order,
-        };
-      } else {
-        throw new Error("Failed to create order");
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-        return rejectWithValue(error.message);
-      }
-      throw error;
-    }
+    if (!response.success) return rejectWithValue("Failed to create an order");
+
+    return {
+      name: response.name,
+      order: response.order,
+    };
   }
 );

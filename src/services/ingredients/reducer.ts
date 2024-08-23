@@ -6,6 +6,7 @@ import { loadIngredients } from "@/services/ingredients/actions";
 
 export interface IngredientsState {
   ingredients: IngredientsData[];
+  defaultIngredients: IngredientsData[];
   error: null | string;
   loading: boolean;
   previousBun: null | IngredientsData;
@@ -16,6 +17,7 @@ const initialState: IngredientsState = {
   error: null,
   loading: false,
   previousBun: null,
+  defaultIngredients: [],
 };
 
 const ingredientsSlice = createSlice({
@@ -59,6 +61,10 @@ const ingredientsSlice = createSlice({
 
       state.ingredients[indexSubtractItem].__v -= 1;
     },
+
+    clearCounters: (state) => {
+      state.ingredients = state.defaultIngredients;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -70,6 +76,7 @@ const ingredientsSlice = createSlice({
         loadIngredients.fulfilled,
         (state, action: PayloadAction<IngredientsData[]>) => {
           state.ingredients = action.payload;
+          state.defaultIngredients = action.payload;
           state.error = null;
           state.loading = false;
         }
@@ -102,6 +109,7 @@ export const ingredientsSelectors = {
   ),
 };
 
-export const { addCounter, subtractCounter } = ingredientsSlice.actions;
+export const { addCounter, subtractCounter, clearCounters } =
+  ingredientsSlice.actions;
 
 export default ingredientsSlice.reducer;

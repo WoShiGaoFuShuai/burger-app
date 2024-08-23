@@ -1,24 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import BurgerIngredients from "@/components/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "@/components/burger-constructor/burger-constructor";
 import Loader from "@/components/ui/loader/loader";
 
-import { loadIngredients } from "@/services/ingredients/actions";
-import { useAppSelector, useAppDispatch } from "@/services/hooks";
-import { RootState } from "@/services/reducer";
+import { useAppSelector } from "@/services/hooks";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { ingredientsSelectors } from "@/services/ingredients/reducer";
 
 const HomePage = () => {
-  const dispatch = useAppDispatch();
-
   const { ingredients, loading } = useAppSelector(
-    (state: RootState) => state.ingredients
+    ingredientsSelectors.getAllIngredients
   );
-
-  useEffect(() => {
-    dispatch(loadIngredients());
-  }, []);
 
   if (loading) {
     return <Loader text="Подождите, идёт загрузка" />;

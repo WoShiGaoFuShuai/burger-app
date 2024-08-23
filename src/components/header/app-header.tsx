@@ -9,6 +9,7 @@ import cl from "@/components/header/app-header.module.css";
 import HeaderItem from "@/components/header/header-item/header-item";
 import { useAppSelector } from "@/services/hooks";
 import { authSelectors } from "@/services/auth/reducer";
+import { Link } from "react-router-dom";
 
 const AppHeader = () => {
   const { user } = useAppSelector(authSelectors.getAuthState);
@@ -30,7 +31,9 @@ const AppHeader = () => {
           </div>
 
           <li className={cl.header__logo}>
-            <Logo />
+            <Link to="/">
+              <Logo />
+            </Link>
           </li>
           <HeaderItem icon={ProfileIcon} text={textCabinet} path="/profile" />
         </ul>

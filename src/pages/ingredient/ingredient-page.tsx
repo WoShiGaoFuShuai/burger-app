@@ -1,24 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import IngredientDetails from "@/components/modal/ingredient-details/ingredient-details";
 import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/services/hooks";
+import { useAppSelector } from "@/services/hooks";
 import { ingredientsSelectors } from "@/services/ingredients/reducer";
-import { loadIngredients } from "@/services/ingredients/actions";
 import cl from "./ingredient-page.module.css";
 
 const IngredientPage = () => {
   const params = useParams<{ id: string }>();
-  const dispatch = useAppDispatch();
 
   const { ingredients } = useAppSelector(
     ingredientsSelectors.getAllIngredients
   );
-
-  useEffect(() => {
-    if (!ingredients.length) {
-      dispatch(loadIngredients());
-    }
-  }, [dispatch, ingredients.length]);
 
   const ingredient = ingredients.find((item) => item._id === params.id);
 

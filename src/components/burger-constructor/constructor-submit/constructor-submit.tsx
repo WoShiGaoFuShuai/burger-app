@@ -6,11 +6,12 @@ import {
 import cl from "./constructor-submit.module.css";
 import { burgerConstructorSelectors } from "@/services/burger-constructor/reducer";
 import { sendOrder } from "@/services/create-order/actions";
+import { clearState } from "@/services/burger-constructor/reducer";
 import { OrderData } from "@/API/order-service";
 import { useAppSelector, useAppDispatch } from "@/services/hooks";
 import { authSelectors } from "@/services/auth/reducer";
 import { useLocation, useNavigate } from "react-router-dom";
-import { setLsItem } from "@/utils/local-storage";
+import { clearCounters } from "@/services/ingredients/reducer";
 
 interface ConstructorSubmitProps {
   setIsShowModal: (value: boolean) => void;
@@ -35,19 +36,23 @@ const ConstructorSubmit: React.FC<ConstructorSubmitProps> = ({
   const disabled =
     !burgerConstructorState.bun || !burgerConstructorState.ingredients.length;
 
-  const handleSendOrder = () => {
+  const handleSendOrder = async () => {
     if (!allIds) return;
     if (!user) {
-      setLsItem("redirectAfterLogin", location.pathname);
-      navigate("/login");
-      return;
+      return navigate("/login", { state: { from: location } });
     }
 
     setIsShowModal(true);
     const dataOrder: OrderData = {
       ingredients: [...allIds],
     };
-    dispatch(sendOrder(dataOrder));
+    try {
+      await dispatch(sendOrder(dataOrder));
+      dispatch(clearState());
+      dispatch(clearCounters());
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
