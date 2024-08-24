@@ -8,9 +8,14 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
-  const { user } = useAppSelector(authSelectors.getAuthState);
+  const { user, loading } = useAppSelector(authSelectors.getAuthState);
   const location = useLocation();
 
+  if (loading) {
+    return null;
+  }
+
+  // Если пользователь не авторизован, перенаправляем на /login
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} />;
   }

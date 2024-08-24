@@ -61,13 +61,14 @@ const authSlice = createSlice({
       .addCase(
         getUser.fulfilled,
         (state, action: PayloadAction<UserAuthNoPassword>) => {
+          state.user = { ...action.payload };
           state.loading = false;
           state.error = null;
-          state.user = { ...action.payload };
           state.loadingText = "";
         }
       )
       .addCase(getUser.rejected, (state, action) => {
+        state.user = null;
         state.loading = false;
         state.error = action.payload || "Неизвестная ошибка";
         state.loadingText = "";
