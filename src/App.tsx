@@ -65,11 +65,13 @@ function App() {
     if (!accessToken) return;
 
     dispatch(getUser(accessToken));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //Loading ingredients once
   useEffect(() => {
     dispatch(loadIngredients());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {
