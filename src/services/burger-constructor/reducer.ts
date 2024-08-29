@@ -48,6 +48,11 @@ const burgerConstructorSlice = createSlice({
       const [draggedItem] = state.ingredients.splice(dragIndex, 1);
       state.ingredients.splice(hoverIndex, 0, draggedItem);
     },
+
+    clearState: (state) => {
+      state.bun = null;
+      state.ingredients = [];
+    },
   },
 });
 
@@ -88,6 +93,7 @@ export const {
   addConstructorItem,
   removeConstructorItem,
   moveConstructorIngredient,
+  clearState,
 } = burgerConstructorSlice.actions;
 
 export default burgerConstructorSlice.reducer;

@@ -18,3 +18,7 @@
   gap: 100px;
   align-items: center;
 }
+
+.text_container {
+  text-align: center;
+}

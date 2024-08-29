@@ -1,0 +1,30 @@
+.reg__wrapper {
+  margin: 180px auto 0;
+  max-width: 480px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 80px;
+  align-items: center;
+}
+
+.form__links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.form__links-text {
+  display: flex;
+  gap: 4px;
+}
+
+.form__link-accent,
+.link__accent {
+  color: var(--accent);
+  text-decoration: none;
+}

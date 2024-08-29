@@ -1,16 +1,11 @@
-import React, { useState, forwardRef } from "react";
+import React, { forwardRef } from "react";
 
 import cl from "./ingredients-group.module.css";
 import IngredientItem from "../ingredient-item/ingredient-item";
-import IngredientDetails from "@/components/modal/ingredient-details/ingredient-details";
-import Modal from "@/components/modal/modal";
 import { IngredientsData } from "@/types/interface.ingredients";
-import {
-  itemShowInModalSelectors,
-  setItemShowInModal,
-  clearItemShowInModal,
-} from "@/services/item-show-in-modal/reducer";
-import { useAppSelector, useAppDispatch } from "@/services/hooks";
+import { addItemShowInModal } from "@/services/item-show-in-modal/reducer";
+import { useAppDispatch } from "@/services/hooks";
+import { setSsItem } from "@/utils/session-storage";
 
 interface IngredientsGroupProps {
   array: IngredientsData[];
@@ -19,20 +14,11 @@ interface IngredientsGroupProps {
 
 const IngredientsGroup = forwardRef<HTMLDivElement, IngredientsGroupProps>(
   ({ array, title }, ref) => {
-    const [isShowModal, setIsShowModal] = useState(false);
     const dispatch = useAppDispatch();
-    const itemToShowInModal = useAppSelector(
-      itemShowInModalSelectors.getItemShowInModal
-    );
 
     const ingredientItemClicked = (item: IngredientsData) => {
-      dispatch(setItemShowInModal(item));
-      setIsShowModal(true);
-    };
-
-    const closeModalWindow = () => {
-      dispatch(clearItemShowInModal());
-      setIsShowModal(false);
+      dispatch(addItemShowInModal(item));
+      setSsItem("itemInModal", JSON.stringify(item));
     };
 
     return (
@@ -49,12 +35,6 @@ const IngredientsGroup = forwardRef<HTMLDivElement, IngredientsGroupProps>(
             />
           ))}
         </ul>
-
-        {isShowModal && (
-          <Modal title="Детали ингредиента" onClose={closeModalWindow}>
-            <IngredientDetails item={itemToShowInModal} />
-          </Modal>
-        )}
       </div>
     );
   }

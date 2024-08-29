@@ -1,51 +1,124 @@
 import React, { useEffect } from "react";
 import "@/App.css";
 import AppHeader from "@/components/header/app-header";
-import BurgerIngredients from "@/components/burger-ingredients/burger-ingredients";
-import BurgerConstructor from "@/components/burger-constructor/burger-constructor";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import {
+  HomePage,
+  LoginPage,
+  RegistrationPage,
+  ForgotPasswordPage,
+  ResetPasswordPage,
+  ProfilePage,
+  IngredientPage,
+  NotFoundPage,
+} from "@/pages";
+import { useAppDispatch, useAppSelector } from "@/services/hooks";
+import { getUser } from "@/services/auth/actions";
 import Loader from "@/components/ui/loader/loader";
-
-import { useAppSelector, useAppDispatch } from "@/services/hooks";
-import { loadIngredients } from "@/services/ingredients/actions";
-import { RootState } from "@/services/reducer";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { authSelectors } from "./services/auth/reducer";
+import { getAccessToken } from "@/utils/local-storage";
+import ProtectedRoute from "@/components/protected-routes/protected-route/protected-route";
+import GuestRoute from "@/components/protected-routes/guest-route/guest-route";
+import ResetPasswordGuard from "@/components/protected-routes/guards/reset-password-guard/reset-password-guard";
+import Modal from "./components/modal/modal";
+import IngredientDetails from "./components/modal/ingredient-details/ingredient-details";
+import {
+  addItemShowInModal,
+  clearItemShowInModal,
+  itemShowInModalSelectors,
+} from "./services/item-show-in-modal/reducer";
+import { IngredientsData } from "./types/interface.ingredients";
+import { getSsItem, removeSsItem } from "./utils/session-storage";
+import { loadIngredients } from "./services/ingredients/actions";
 
 function App() {
   const dispatch = useAppDispatch();
+  const { loading, loadingText } = useAppSelector(authSelectors.getAuthState);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const { ingredients, loading } = useAppSelector(
-    (state: RootState) => state.ingredients
+  const bg = location.state && location.state.bg;
+
+  const selectedIngredient = useAppSelector(
+    itemShowInModalSelectors.getItemShowInModal
   );
 
+  const closeModal = () => {
+    dispatch(clearItemShowInModal());
+    removeSsItem("itemInModal");
+    navigate(-1);
+  };
+
+  // logic for showing popup even after reloading a page
+  useEffect(() => {
+    let sessionItemInModal = getSsItem("itemInModal");
+    if (sessionItemInModal) {
+      const parsedItem = JSON.parse(sessionItemInModal);
+      dispatch(addItemShowInModal(parsedItem as IngredientsData));
+    }
+  }, [dispatch]);
+
+  // IF we have accessToken => getUser
+  useEffect(() => {
+    const accessToken = getAccessToken();
+
+    if (!accessToken) return;
+
+    dispatch(getUser(accessToken));
+  }, []);
+
+  //Loading ingredients once
   useEffect(() => {
     dispatch(loadIngredients());
   }, []);
 
   if (loading) {
-    return <Loader text="Подождите, идёт загрузка" />;
+    return <Loader text={loadingText} />;
   }
-
-  const noIngredients = !loading && !ingredients.length;
 
   return (
     <div className="App">
-      <>
-        <AppHeader />
+      <AppHeader />
 
-        <DndProvider backend={HTML5Backend}>
-          <main className="main">
-            {noIngredients ? (
-              <p className="text text_type_main-medium">Извините, нет данных</p>
-            ) : (
-              <>
-                <BurgerIngredients />
-                <BurgerConstructor />
-              </>
-            )}
-          </main>
-        </DndProvider>
-      </>
+      <Routes location={bg || location}>
+        <Route path="/" element={<HomePage />}></Route>
+        <Route
+          path="/login"
+          element={<GuestRoute element={<LoginPage />} />}
+        ></Route>
+        <Route
+          path="/register"
+          element={<GuestRoute element={<RegistrationPage />} />}
+        ></Route>
+        <Route
+          path="/forgot-password"
+          element={<GuestRoute element={<ForgotPasswordPage />} />}
+        ></Route>
+        <Route
+          path="/reset-password"
+          element={<ResetPasswordGuard element={<ResetPasswordPage />} />}
+        ></Route>
+        <Route
+          path="/profile"
+          element={<ProtectedRoute element={<ProfilePage />} />}
+        ></Route>
+        <Route path="/ingredients/:id" element={<IngredientPage />} />
+
+        <Route path="*" element={<NotFoundPage />}></Route>
+      </Routes>
+
+      {bg && (
+        <Routes>
+          <Route
+            path="ingredients/:id"
+            element={
+              <Modal title="Детали ингредиента" onClose={closeModal}>
+                <IngredientDetails item={selectedIngredient} />
+              </Modal>
+            }
+          ></Route>
+        </Routes>
+      )}
     </div>
   );
 }

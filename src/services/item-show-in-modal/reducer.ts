@@ -14,7 +14,7 @@ const itemShowInModalSlice = createSlice({
   name: "itemShowInModal",
   initialState,
   reducers: {
-    setItemShowInModal(state, action: PayloadAction<IngredientsData>) {
+    addItemShowInModal(state, action: PayloadAction<IngredientsData>) {
       state.itemShowInModal = action.payload;
     },
     clearItemShowInModal(state) {
@@ -28,6 +28,6 @@ export const itemShowInModalSelectors = {
     state.itemShowInModal.itemShowInModal,
 };
 
-export const { setItemShowInModal, clearItemShowInModal } =
+export const { addItemShowInModal, clearItemShowInModal } =
   itemShowInModalSlice.actions;
 export default itemShowInModalSlice.reducer;

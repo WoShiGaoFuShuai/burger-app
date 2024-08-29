@@ -36,7 +36,7 @@ const Loader: React.FC<LoaderProps> = ({
         />
         {text && (
           <p
-            className={`text text_type_main-${textType}`}
+            className={`text text_type_main-${textType} ${cl.text_container}`}
             style={{ color: textColor }}
           >
             {text}

@@ -13,10 +13,13 @@ export interface OrderData {
 }
 
 export default class OrderService {
-  static async createOrder(orderData: any) {
+  static async createOrder(orderData: any, accessToken: string) {
     const response = await fetch(ORDER_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
       body: JSON.stringify(orderData),
     });
 
