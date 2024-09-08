@@ -16,6 +16,7 @@ import {
   setRefreshToken,
   setAccessToken,
 } from "@/utils/local-storage";
+import { checkResponse } from "@/utils/auth";
 
 const URL: string = "https://norma.nomoreparties.space/api/";
 const LOGIN: string = "auth/login";
@@ -27,16 +28,19 @@ const FORGOT: string = "password-reset";
 const RESET: string = "password-reset/reset";
 
 export default class AuthService {
-  static async registerRequest(formData: UserAuthInterface) {
+  static async registerRequest(
+    formData: UserAuthInterface
+  ): Promise<RegisterApiResponse> {
     const response = await fetch(URL + REGISTER, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
 
-    if (!response.ok) throw new Error("Ответ сети был не ok.");
+    const data: RegisterApiResponse = await checkResponse<RegisterApiResponse>(
+      response
+    );
 
-    const data: RegisterApiResponse = await response.json();
     return data;
   }
 
@@ -59,11 +63,8 @@ export default class AuthService {
       return;
     }
 
-    if (!response.ok) {
-      throw new Error("Ответ сети был не ok.");
-    }
-
-    const data: SuccessUserApiResponse = await response.json();
+    const data: SuccessUserApiResponse =
+      await checkResponse<SuccessUserApiResponse>(response);
     return data;
   }
 
@@ -80,9 +81,8 @@ export default class AuthService {
       body: JSON.stringify(newInfo),
     });
 
-    if (!response.ok) throw new Error("Failed to update user info");
-
-    const data: SuccessUserApiResponse = await response.json();
+    const data: SuccessUserApiResponse =
+      await checkResponse<SuccessUserApiResponse>(response);
     return data;
   }
 
@@ -102,9 +102,8 @@ export default class AuthService {
       body: JSON.stringify(refreshToken),
     });
 
-    if (!response.ok) throw new Error("Failed to update access token.");
-
-    const data: RefreshTokenApiResponse = await response.json();
+    const data: RefreshTokenApiResponse =
+      await checkResponse<RefreshTokenApiResponse>(response);
 
     if (!data.success) throw new Error("Token update was unsuccessful.");
 
@@ -121,7 +120,9 @@ export default class AuthService {
     return newAccessToken;
   }
 
-  static async forgotPasswordRequest(resetEmail: ForgotEmailInterface) {
+  static async forgotPasswordRequest(
+    resetEmail: ForgotEmailInterface
+  ): Promise<ForgotResetPasswordApiResponse> {
     const response = await fetch(URL + FORGOT, {
       method: "POST",
       headers: {
@@ -130,13 +131,14 @@ export default class AuthService {
       body: JSON.stringify(resetEmail),
     });
 
-    if (!response.ok) throw new Error("Failed to reset password.");
-
-    const data: ForgotResetPasswordApiResponse = await response.json();
+    const data: ForgotResetPasswordApiResponse =
+      await checkResponse<ForgotResetPasswordApiResponse>(response);
     return data;
   }
 
-  static async resetPasswordRequest(formData: ResetPasswordForm) {
+  static async resetPasswordRequest(
+    formData: ResetPasswordForm
+  ): Promise<ForgotResetPasswordApiResponse> {
     const response = await fetch(URL + RESET, {
       method: "POST",
       headers: {
@@ -145,13 +147,12 @@ export default class AuthService {
       body: JSON.stringify(formData),
     });
 
-    if (!response.ok) throw new Error("Failed to reset password.");
-
-    const data: ForgotResetPasswordApiResponse = await response.json();
+    const data: ForgotResetPasswordApiResponse =
+      await checkResponse<ForgotResetPasswordApiResponse>(response);
     return data;
   }
 
-  static async logoutRequest(refreshToken: string) {
+  static async logoutRequest(refreshToken: string): Promise<LogoutApiResponse> {
     const response = await fetch(URL + LOGOUT, {
       method: "POST",
       headers: {
@@ -160,13 +161,15 @@ export default class AuthService {
       body: JSON.stringify({ token: refreshToken }),
     });
 
-    if (!response.ok) throw new Error("Failed to logout.");
-
-    const data: LogoutApiResponse = await response.json();
+    const data: LogoutApiResponse = await checkResponse<LogoutApiResponse>(
+      response
+    );
     return data;
   }
 
-  static async loginRequest(formData: UserAuthLogin) {
+  static async loginRequest(
+    formData: UserAuthLogin
+  ): Promise<RegisterApiResponse> {
     const response = await fetch(URL + LOGIN, {
       method: "POST",
       headers: {
@@ -175,9 +178,9 @@ export default class AuthService {
       body: JSON.stringify(formData),
     });
 
-    if (!response.ok) throw new Error("Failed to log in.");
-
-    const data: RegisterApiResponse = await response.json();
+    const data: RegisterApiResponse = await checkResponse<RegisterApiResponse>(
+      response
+    );
     return data;
   }
 }

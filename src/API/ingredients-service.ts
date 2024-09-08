@@ -1,4 +1,5 @@
 import { IngredientsData } from "@/types/interface.ingredients";
+import { checkResponse } from "@/utils/auth";
 const URL: string = "https://norma.nomoreparties.space/api/ingredients";
 
 export interface ApiResponse {
@@ -7,12 +8,10 @@ export interface ApiResponse {
 }
 
 export default class IngredientsService {
-  static async getAll() {
+  static async getAll(): Promise<ApiResponse> {
     const response = await fetch(URL);
 
-    if (!response.ok) throw new Error("Ответ сети был не ok.");
-
-    const data: ApiResponse = await response.json();
+    const data: ApiResponse = await checkResponse<ApiResponse>(response);
     return data;
   }
 }

@@ -1,3 +1,4 @@
+import { checkResponse } from "@/utils/auth";
 const ORDER_URL: string = "https://norma.nomoreparties.space/api/orders";
 
 export interface OrderApiResponse {
@@ -13,7 +14,10 @@ export interface OrderData {
 }
 
 export default class OrderService {
-  static async createOrder(orderData: any, accessToken: string) {
+  static async createOrder(
+    orderData: OrderData,
+    accessToken: string
+  ): Promise<OrderApiResponse> {
     const response = await fetch(ORDER_URL, {
       method: "POST",
       headers: {
@@ -23,9 +27,9 @@ export default class OrderService {
       body: JSON.stringify(orderData),
     });
 
-    if (!response.ok) throw new Error("Ответ сети был не ok.");
-
-    const data: OrderApiResponse = await response.json();
+    const data: OrderApiResponse = await checkResponse<OrderApiResponse>(
+      response
+    );
     return data;
   }
 }
