@@ -1,3 +1,11 @@
+export const checkResponse = async <T>(res: Response): Promise<T> => {
+  if (!res.ok) {
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+  const data: T = await res.json();
+  return data;
+};
+
 export interface UserAuthNoPassword {
   name: string;
   email: string;
