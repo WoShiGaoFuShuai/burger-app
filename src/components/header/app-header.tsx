@@ -27,7 +27,7 @@ const AppHeader = () => {
         <ul className={cl.header__content}>
           <div className={cl.header__content_left}>
             <HeaderItem icon={BurgerIcon} text="Конструктор" path="/" />
-            <HeaderItem icon={ListIcon} text="Лента заказов" path="/no-path" />
+            <HeaderItem icon={ListIcon} text="Лента заказов" path="/feed" />
           </div>
 
           <li className={cl.header__logo}>

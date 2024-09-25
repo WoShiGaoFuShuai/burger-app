@@ -1,8 +1,4 @@
-import React, { useState, useRef, useMemo } from "react";
-import {
-  Input,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import React, { useState, useMemo } from "react";
 import AccountLinks from "@/components/account/account-links";
 import cl from "./profile.module.css";
 import { useAppDispatch, useAppSelector } from "@/services/hooks";
@@ -10,6 +6,9 @@ import { logoutUser, updateUserInfo } from "@/services/auth/actions";
 import { getAccessToken, getRefreshToken } from "@/utils/local-storage";
 import { authSelectors } from "@/services/auth/reducer";
 import Loader from "@/components/ui/loader/loader";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import ProfileInfoInputs from "@/components/profile-info-inputs/profile-info-inputs";
+import FeedOrderCard from "@/components/feed/feed-order-card/feed-order-card";
 
 export interface AccountLinkObject {
   title: string;
@@ -26,20 +25,27 @@ const ProfilePage = () => {
   const [email, setEmail] = useState(user?.email || "");
   const [password, setPassword] = useState("");
 
-  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const images = [
+    "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
+    "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
+    "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
+    "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
+    "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
+    "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
+    "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
+  ];
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const onIconClick = () => {
-    if (passwordRef.current) {
-      setTimeout(() => passwordRef.current!.focus(), 0);
-      alert("Icon Click Callback");
-    }
+  const handleProfileClick = () => {
+    navigate("/profile");
   };
 
-  const handleProfileClick = () => {};
-
-  const handleOrderHistoryClick = () => {};
+  const handleOrderHistoryClick = () => {
+    navigate("orders");
+  };
 
   const handleLogoutClick = () => {
     const refreshToken = getRefreshToken();
@@ -48,8 +54,16 @@ const ProfilePage = () => {
   };
 
   const accLinks: AccountLinkObject[] = [
-    { title: "Профиль", active: true, onClick: handleProfileClick },
-    { title: "История заказов", onClick: handleOrderHistoryClick },
+    {
+      title: "Профиль",
+      active: location.pathname === "/profile",
+      onClick: handleProfileClick,
+    },
+    {
+      title: "История заказов",
+      active: location.pathname === "/profile/orders",
+      onClick: handleOrderHistoryClick,
+    },
     { title: "Выход", onClick: handleLogoutClick },
   ];
 
@@ -99,65 +113,25 @@ const ProfilePage = () => {
     <div className={cl.profile__wrapper}>
       <AccountLinks accLinks={accLinks} />
 
-      <div className={cl.profile__inputs}>
-        <Input
-          type={"text"}
-          placeholder={"Имя"}
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-          name={"name"}
-          error={false}
-          icon={"EditIcon"}
-          errorText={"Ошибка"}
-          size={"default"}
-        ></Input>
-
-        <Input
-          type={"email"}
-          placeholder={"Логин"}
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          name={"email"}
-          error={false}
-          icon={"EditIcon"}
-          errorText={"Ошибка"}
-          size={"default"}
-        ></Input>
-
-        <Input
-          type={"password"}
-          placeholder={"Введите новый пароль"}
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-          name={"password"}
-          error={false}
-          errorText={"Ошибка"}
-          size={"default"}
-          onIconClick={onIconClick}
-          icon={"EditIcon"}
-          ref={passwordRef}
-        ></Input>
-
-        <div className={`${cl.btns__wrapper} ${displayStyle ? cl.d_none : ""}`}>
-          <Button
-            onClick={resetFormToInitialState}
-            htmlType="button"
-            type="secondary"
-            size="medium"
-          >
-            Отмена
-          </Button>
-
-          <Button
-            onClick={changeUserInfo}
-            htmlType="button"
-            type="primary"
-            size="medium"
-          >
-            Сохранить
-          </Button>
-        </div>
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProfileInfoInputs
+              name={name}
+              setName={setName}
+              password={password}
+              setPassword={setPassword}
+              email={email}
+              setEmail={setEmail}
+              displayStyle={displayStyle}
+              resetFormToInitialState={resetFormToInitialState}
+              changeUserInfo={changeUserInfo}
+            />
+          }
+        />
+        <Route path="orders" element={<FeedOrderCard images={images} />} />
+      </Routes>
     </div>
   );
 };

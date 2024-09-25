@@ -1,0 +1,25 @@
+.feed_page_wrapper {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px 20px;
+}
+
+.feed_page_title {
+  margin-bottom: 20px;
+}
+
+.feed_content {
+  display: flex;
+  gap: 60px;
+}
+
+.feed_orders {
+  max-width: 584px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 872px;
+  overflow-y: auto;
+}

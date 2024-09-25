@@ -1,0 +1,67 @@
+.page_id {
+  max-width: 640px;
+  margin-inline: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.order_num {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  margin-bottom: 4px;
+}
+
+.text__done {
+  color: var(--green);
+  margin-bottom: 60px;
+}
+
+.text__composition {
+  margin-bottom: 24px;
+}
+
+.composition__card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.card__title {
+  margin-right: auto;
+}
+
+.amount__item {
+  display: flex;
+  gap: 4px;
+}
+
+.card__amount {
+  display: flex;
+  gap: 10px;
+}
+
+.composition_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 60px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 24px;
+}
+
+.total__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total__nums {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
