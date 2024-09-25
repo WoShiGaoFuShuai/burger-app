@@ -9,7 +9,7 @@ export interface OrderFeed {
 }
 
 export interface OrdersFeed {
-  orders: Array<OrderFeed>;
+  orders: OrderFeed[];
   total: number;
   totalToday: number;
 }
