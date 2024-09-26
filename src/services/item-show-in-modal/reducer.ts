@@ -1,6 +1,6 @@
 import { IngredientsData } from "@/types/interface.ingredients";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "@/services/reducer";
+import { RootState } from "@/services/store";
 
 interface ItemShowModalState {
   itemShowInModal: IngredientsData | null;
