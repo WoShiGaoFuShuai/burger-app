@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import AccountLinks from "@/components/account/account-links";
 import cl from "./profile.module.css";
 import { useAppDispatch, useAppSelector } from "@/services/hooks";
@@ -9,6 +9,13 @@ import Loader from "@/components/ui/loader/loader";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import ProfileInfoInputs from "@/components/profile-info-inputs/profile-info-inputs";
 import FeedOrderCard from "@/components/feed/feed-order-card/feed-order-card";
+import { ordersFeedProfileSelectors } from "@/services/orders-feed-profile/reducer";
+import {
+  URL_FEED_ORDERS_PROFILE,
+  wsConnectProfile,
+  wsDisconnectProfile,
+} from "@/services/orders-feed-profile/actions";
+import { ingredientsSelectors } from "@/services/ingredients/reducer";
 
 export interface AccountLinkObject {
   title: string;
@@ -25,19 +32,30 @@ const ProfilePage = () => {
   const [email, setEmail] = useState(user?.email || "");
   const [password, setPassword] = useState("");
 
-  const images = [
-    "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
-  ];
+  const { orders } = useAppSelector(
+    ordersFeedProfileSelectors.getOrdersFeedProfileState
+  );
+  console.log("orders", orders);
+  const { ingredients } = useAppSelector(
+    ingredientsSelectors.getAllIngredients
+  );
+  console.log("inngred", ingredients);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    const accessToken = getAccessToken();
+    console.log(accessToken);
+    dispatch(
+      wsConnectProfile(`${URL_FEED_ORDERS_PROFILE}?token=${accessToken}`)
+    );
+
+    return () => {
+      dispatch(wsDisconnectProfile());
+    };
+  }, [dispatch]);
 
   const handleProfileClick = () => {
     navigate("/profile");
@@ -109,6 +127,15 @@ const ProfilePage = () => {
     return <Loader text={loadingText} />;
   }
 
+  if (!orders.length) {
+    console.log("IF in !orders.length");
+    return (
+      <p className="text text_type_main-middle">
+        Загружаем вашу ленту заказов...
+      </p>
+    );
+  }
+
   return (
     <div className={cl.profile__wrapper}>
       <AccountLinks accLinks={accLinks} />
@@ -130,7 +157,10 @@ const ProfilePage = () => {
             />
           }
         />
-        <Route path="orders" element={<FeedOrderCard images={images} />} />
+        <Route
+          path="orders"
+          element={<FeedOrderCard orders={orders} ingredients={ingredients} />}
+        />
       </Routes>
     </div>
   );

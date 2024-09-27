@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { getUser } from "@/services/auth/actions";
 import Loader from "@/components/ui/loader/loader";
 import { authSelectors } from "./services/auth/reducer";
-import { getAccessToken } from "@/utils/local-storage";
+import { getAccessToken, getRefreshToken } from "@/utils/local-storage";
 import ProtectedRoute from "@/components/protected-routes/protected-route/protected-route";
 import GuestRoute from "@/components/protected-routes/guest-route/guest-route";
 import ResetPasswordGuard from "@/components/protected-routes/guards/reset-password-guard/reset-password-guard";

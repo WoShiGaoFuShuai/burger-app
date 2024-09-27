@@ -1,15 +1,16 @@
-export interface OrderFeed {
-  ingredients: Array<string>;
+export interface FeedOrder {
   _id: string;
-  status: string;
   name: string;
+  ingredients: string[];
   number: number;
+  status: string;
   createdAt: string;
   updatedAt: string;
 }
 
-export interface OrdersFeed {
-  orders: OrderFeed[];
+export interface MessageFeedOrders {
+  orders: FeedOrder[];
+  success: boolean;
   total: number;
   totalToday: number;
 }

@@ -7,14 +7,12 @@ export enum WebsocketStatus {
   ONLINE = "ONLINE",
   OFFLINE = "OFFLINE",
 }
-// LiveTableActions = MessageFeedOrders (то что приходит с вебсокета)
-
-interface FeedState extends MessageFeedOrders {
+interface FeedProfileState extends MessageFeedOrders {
   status: string;
   connectionError: string | null;
 }
 
-const initialState: FeedState = {
+const initialState: FeedProfileState = {
   status: "",
   orders: [],
   success: false,
@@ -23,8 +21,8 @@ const initialState: FeedState = {
   connectionError: null,
 };
 
-const ordersFeedAllSlice = createSlice({
-  name: "feed",
+const ordersFeedProfileSlice = createSlice({
+  name: "feedProfile",
   initialState,
   reducers: {
     wsOpen: (state) => {
@@ -47,10 +45,12 @@ const ordersFeedAllSlice = createSlice({
 });
 
 export const { wsOpen, wsClose, wsError, wsMessage } =
-  ordersFeedAllSlice.actions;
-export const ordersFeedAllSelectors = {
-  getOrdersFeedState: (state: RootState) => state.ordersFeedAll,
-  getWebsocketStatus: (state: RootState) => state.ordersFeedAll.status,
+  ordersFeedProfileSlice.actions;
+
+export const ordersFeedProfileSelectors = {
+  getOrdersFeedProfileState: (state: RootState) => state.ordersFeedProfile,
+  getWebsocketProfileStatus: (state: RootState) =>
+    state.ordersFeedProfile.status,
 };
 
-export default ordersFeedAllSlice.reducer;
+export default ordersFeedProfileSlice.reducer;

@@ -1,31 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import FeedOrderCard from "@/components/feed/feed-order-card/feed-order-card";
 import cl from "./feed-page.module.css";
 import FeedInfo from "@/components/feed/feed-info/feed-info";
-// import {
-//   connectWebsocket,
-//   sendMessage,
-//   closeWebsocket,
-// } from "@/services/websocket/wsService";
+import { useAppDispatch, useAppSelector } from "@/services/hooks";
+import { ordersFeedAllSelectors } from "@/services/orders-feed-all/reducer";
+import {
+  URL_FEED_ORDERS_ALL,
+  wsConnect,
+  wsDisconnect,
+} from "@/services/orders-feed-all/actions";
+import { ingredientsSelectors } from "@/services/ingredients/reducer";
 
 const FeedPage = () => {
-  // useEffect(() => {
-  //   connectWebsocket();
+  const dispatch = useAppDispatch();
 
-  //   return () => {
-  //     closeWebsocket();
-  //   };
-  // }, []);
+  const { orders } = useAppSelector(ordersFeedAllSelectors.getOrdersFeedState);
 
-  const images = [
-    "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
-    "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
-  ];
+  useEffect(() => {
+    dispatch(wsConnect(URL_FEED_ORDERS_ALL));
+
+    return () => {
+      dispatch(wsDisconnect());
+    };
+  }, [dispatch]);
+
+  const { ingredients } = useAppSelector(
+    ingredientsSelectors.getAllIngredients
+  );
+
+  let uniqueIngredients = new Set();
+
+  ingredients.forEach((ingredient) =>
+    uniqueIngredients.add(ingredient.image_mobile)
+  );
+
+  if (!orders.length) {
+    return (
+      <p className="text text_type_main-large">Загружаем ленту заказов...</p>
+    );
+  }
 
   return (
     <div className={cl.feed_page_wrapper}>
@@ -34,15 +47,7 @@ const FeedPage = () => {
       </p>
 
       <div className={cl.feed_content}>
-        <div className={cl.feed_orders}>
-          <FeedOrderCard images={images} />
-          <FeedOrderCard images={images} />
-          <FeedOrderCard images={images} />
-          <FeedOrderCard images={images} />
-          <FeedOrderCard images={images} />
-          <FeedOrderCard images={images} />
-          <FeedOrderCard images={images} />
-        </div>
+        <FeedOrderCard orders={orders} ingredients={ingredients} />
 
         <FeedInfo />
       </div>

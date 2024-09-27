@@ -6,3 +6,8 @@
   padding: 0 20px;
   box-sizing: border-box;
 }
+
+.profile__orders_wrapper {
+  display: flex;
+  flex-direction: column;
+}

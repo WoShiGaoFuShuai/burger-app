@@ -1,3 +1,14 @@
+.feed_orders {
+  max-width: 584px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 872px;
+  overflow-y: auto;
+  padding: 0 16px 0 0;
+}
+
 .feed__order {
   background-color: #1c1c21;
   padding: 24px;
@@ -14,6 +25,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.feed_order_info {
+  position: relative;
 }
 
 .feed_order_info_imgs {
@@ -49,17 +64,23 @@
   z-index: 10;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Центруємо текст всередині зображення */
+  transform: translate(-50%, -50%);
 }
 
 .img__last {
   opacity: 0.6;
 }
 
+.last__img_wrapper > img {
+  opacity: 0.3;
+}
+
 .order__info_price {
   display: flex;
   align-items: center;
   gap: 8px;
+  position: absolute;
+  right: 0;
 }
 
 .link__wrapper {

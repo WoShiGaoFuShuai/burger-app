@@ -18,6 +18,7 @@ export default class OrderService {
     orderData: OrderData,
     accessToken: string
   ): Promise<OrderApiResponse> {
+    console.log("AT", accessToken);
     const response = await fetch(ORDER_URL, {
       method: "POST",
       headers: {
@@ -30,6 +31,7 @@ export default class OrderService {
     const data: OrderApiResponse = await checkResponse<OrderApiResponse>(
       response
     );
+    console.log("DATA", data);
     return data;
   }
 }
