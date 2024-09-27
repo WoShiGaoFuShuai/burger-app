@@ -7,7 +7,6 @@ export enum WebsocketStatus {
   ONLINE = "ONLINE",
   OFFLINE = "OFFLINE",
 }
-// LiveTableActions = MessageFeedOrders (то что приходит с вебсокета)
 
 interface FeedState extends MessageFeedOrders {
   status: string;
@@ -37,6 +36,7 @@ const ordersFeedAllSlice = createSlice({
       state.connectionError = action.payload;
     },
     wsMessage: (state, action: PayloadAction<MessageFeedOrders>) => {
+      console.log("IN REDUCER ALL");
       state.success = action.payload.success;
       state.orders = action.payload.orders;
       state.total = action.payload.total;

@@ -4,8 +4,12 @@ import { socketMiddleware } from "./middleware/websocket-middleware";
 import { MessageFeedOrders } from "@/types/interface.orders-feed";
 import { wsConnect, wsDisconnect } from "./orders-feed-all/actions";
 import {
+  wsCloseProfile,
   wsConnectProfile,
   wsDisconnectProfile,
+  wsErrorProfile,
+  wsMessageProfile,
+  wsOpenProfile,
 } from "./orders-feed-profile/actions";
 import { wsClose, wsError, wsMessage, wsOpen } from "./orders-feed-all/reducer";
 
@@ -21,10 +25,10 @@ const feedOrdersAllMiddleware = socketMiddleware<MessageFeedOrders>({
 const feedOrdersProfileMiddleware = socketMiddleware<MessageFeedOrders>({
   connect: wsConnectProfile,
   disconnect: wsDisconnectProfile,
-  onOpen: wsOpen,
-  onClose: wsClose,
-  onError: wsError,
-  onMessage: wsMessage,
+  onOpen: wsOpenProfile,
+  onClose: wsCloseProfile,
+  onError: wsErrorProfile,
+  onMessage: wsMessageProfile,
 });
 
 export const store = configureStore({

@@ -47,7 +47,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const accessToken = getAccessToken();
-    console.log(accessToken);
+    console.log(typeof accessToken);
     dispatch(
       wsConnectProfile(`${URL_FEED_ORDERS_PROFILE}?token=${accessToken}`)
     );

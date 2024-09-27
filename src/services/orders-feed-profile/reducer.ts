@@ -25,16 +25,17 @@ const ordersFeedProfileSlice = createSlice({
   name: "feedProfile",
   initialState,
   reducers: {
-    wsOpen: (state) => {
+    wsOpenProfile: (state) => {
       state.status = WebsocketStatus.ONLINE;
     },
-    wsClose: (state) => {
+    wsCloseProfile: (state) => {
       state.status = WebsocketStatus.OFFLINE;
     },
-    wsError: (state, action: PayloadAction<string>) => {
+    wsErrorProfile: (state, action: PayloadAction<string>) => {
       state.connectionError = action.payload;
     },
-    wsMessage: (state, action: PayloadAction<MessageFeedOrders>) => {
+    wsMessageProfile: (state, action: PayloadAction<MessageFeedOrders>) => {
+      console.log("IN REDUCER", action);
       state.success = action.payload.success;
       state.orders = action.payload.orders;
       state.total = action.payload.total;
@@ -44,8 +45,12 @@ const ordersFeedProfileSlice = createSlice({
   },
 });
 
-export const { wsOpen, wsClose, wsError, wsMessage } =
-  ordersFeedProfileSlice.actions;
+export const {
+  wsOpenProfile,
+  wsCloseProfile,
+  wsErrorProfile,
+  wsMessageProfile,
+} = ordersFeedProfileSlice.actions;
 
 export const ordersFeedProfileSelectors = {
   getOrdersFeedProfileState: (state: RootState) => state.ordersFeedProfile,

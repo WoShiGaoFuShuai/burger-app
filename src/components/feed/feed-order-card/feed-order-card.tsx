@@ -94,38 +94,54 @@ const FeedOrderCard: React.FC<FeedOrderCardProps> = ({
 
   return (
     <div className={cl.feed_orders}>
-      {orders.map((order, index) => (
-        <div
-          key={order._id}
-          className={cl.link__wrapper}
-          onClick={() => handleOrderCardClick(order.number)}
-        >
-          <div className={cl.feed__order}>
-            <div className={cl.feed_order_num}>
-              <span className="text text_type_digits-default">
-                #{order.number}
-              </span>
-              <span className="text text_type_main-default text_color_inactive">
-                <FormattedDate date={new Date(`${order.createdAt}`)} />
-              </span>
-            </div>
-            <div className="feed__order-title">
-              <p className="text text_type_main-medium">{order.name}</p>
-            </div>
-            <div className={cl.feed_order_info}>
-              {/* {index === 0 ? findIngredientImages(order) : null} */}
+      {orders
+        .filter((order) => {
+          // Проверяем, что order существует и не пустой
+          if (!order) {
+            return false;
+          }
 
-              {findIngredientImages(order)}
-              <div className={cl.order__info_price}>
+          // Проверяем, что _id не null и не undefined
+          if (!order._id) {
+            return false;
+          }
+
+          if (!order.ingredients.length) return false;
+
+          return true;
+        })
+        .map((order, index) => (
+          <div
+            key={order._id}
+            className={cl.link__wrapper}
+            onClick={() => handleOrderCardClick(order.number)}
+          >
+            <div className={cl.feed__order}>
+              <div className={cl.feed_order_num}>
                 <span className="text text_type_digits-default">
-                  {calculateTotalPrice(ingredients, order.ingredients)}
+                  #{order.number}
                 </span>
-                <CurrencyIcon type="primary" />
+                <span className="text text_type_main-default text_color_inactive">
+                  <FormattedDate date={new Date(`${order.createdAt}`)} />
+                </span>
+              </div>
+              <div className="feed__order-title">
+                <p className="text text_type_main-medium">{order.name}</p>
+              </div>
+              <div className={cl.feed_order_info}>
+                {/* {index === 0 ? findIngredientImages(order) : null} */}
+
+                {findIngredientImages(order)}
+                <div className={cl.order__info_price}>
+                  <span className="text text_type_digits-default">
+                    {calculateTotalPrice(ingredients, order.ingredients)}
+                  </span>
+                  <CurrencyIcon type="primary" />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

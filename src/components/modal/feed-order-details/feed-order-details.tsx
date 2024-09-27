@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from "./feed-order-details.module.css";
 import { useAppDispatch, useAppSelector } from "@/services/hooks";
-import { useParams, useNavigate } from "react-router-dom"; // Добавил useNavigate
+import { useParams, useNavigate, useLocation } from "react-router-dom"; // Добавил useNavigate
 import { ordersFeedAllSelectors } from "@/services/orders-feed-all/reducer";
 import { ingredientsSelectors } from "@/services/ingredients/reducer";
 import { IngredientsData } from "@/types/interface.ingredients";
@@ -21,6 +21,8 @@ const FeedOrderDetails: React.FC = () => {
   const { ingredients } = useAppSelector(
     ingredientsSelectors.getAllIngredients
   );
+
+  const location = useLocation();
 
   // Используем useState для хранения item
   const [item, setItem] = useState<FeedOrder | null>(null);
@@ -113,7 +115,10 @@ const FeedOrderDetails: React.FC = () => {
   });
 
   return (
-    <div className={cl.page_id} style={{ paddingTop: "0" }}>
+    <div
+      className={cl.page_id}
+      style={{ paddingTop: location.state ? "" : "120px" }}
+    >
       <p className={`text text_type_digits-default ${cl.order_num}`}>
         #{item.number}
       </p>
@@ -130,8 +135,10 @@ const FeedOrderDetails: React.FC = () => {
 
       <div className={cl.composition_wrapper}>
         {itemIngredients.map((ingredient, index) => (
-          <div key={ingredient._id} className={cl.composition__card}>
-            <img src={ingredient.image_mobile} alt={ingredient.name} />
+          <div key={index} className={cl.composition__card}>
+            <div className={cl.img__wrapper}>
+              <img src={ingredient.image_mobile} alt={ingredient.name} />
+            </div>
             <p className={`text text_type_main-default ${cl.card__title}`}>
               {ingredient.name}
             </p>
