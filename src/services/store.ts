@@ -4,13 +4,16 @@ import { socketMiddleware } from "./middleware/websocket-middleware";
 import { MessageFeedOrders } from "@/types/interface.orders-feed";
 import { wsConnect, wsDisconnect } from "./orders-feed-all/actions";
 import {
-  wsCloseProfile,
   wsConnectProfile,
   wsDisconnectProfile,
+} from "./orders-feed-profile/actions";
+import {
+  wsCloseProfile,
   wsErrorProfile,
   wsMessageProfile,
   wsOpenProfile,
-} from "./orders-feed-profile/actions";
+} from "./orders-feed-profile/reducer";
+
 import { wsClose, wsError, wsMessage, wsOpen } from "./orders-feed-all/reducer";
 
 const feedOrdersAllMiddleware = socketMiddleware<MessageFeedOrders>({

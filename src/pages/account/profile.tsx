@@ -1,21 +1,13 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import AccountLinks from "@/components/account/account-links";
 import cl from "./profile.module.css";
 import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { logoutUser, updateUserInfo } from "@/services/auth/actions";
 import { getAccessToken, getRefreshToken } from "@/utils/local-storage";
 import { authSelectors } from "@/services/auth/reducer";
-import Loader from "@/components/ui/loader/loader";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import ProfileInfoInputs from "@/components/profile-info-inputs/profile-info-inputs";
 import FeedOrderCard from "@/components/feed/feed-order-card/feed-order-card";
-import { ordersFeedProfileSelectors } from "@/services/orders-feed-profile/reducer";
-import {
-  URL_FEED_ORDERS_PROFILE,
-  wsConnectProfile,
-  wsDisconnectProfile,
-} from "@/services/orders-feed-profile/actions";
-import { ingredientsSelectors } from "@/services/ingredients/reducer";
 
 export interface AccountLinkObject {
   title: string;
@@ -24,38 +16,15 @@ export interface AccountLinkObject {
 }
 
 const ProfilePage = () => {
-  const { loading, loadingText, user } = useAppSelector(
-    authSelectors.getAuthState
-  );
+  const { user } = useAppSelector(authSelectors.getAuthState);
 
   const [name, setName] = useState(user?.name || "");
   const [email, setEmail] = useState(user?.email || "");
   const [password, setPassword] = useState("");
 
-  const { orders } = useAppSelector(
-    ordersFeedProfileSelectors.getOrdersFeedProfileState
-  );
-  console.log("orders", orders);
-  const { ingredients } = useAppSelector(
-    ingredientsSelectors.getAllIngredients
-  );
-  console.log("inngred", ingredients);
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
-  useEffect(() => {
-    const accessToken = getAccessToken();
-    console.log(typeof accessToken);
-    dispatch(
-      wsConnectProfile(`${URL_FEED_ORDERS_PROFILE}?token=${accessToken}`)
-    );
-
-    return () => {
-      dispatch(wsDisconnectProfile());
-    };
-  }, [dispatch]);
 
   const handleProfileClick = () => {
     navigate("/profile");
@@ -97,8 +66,7 @@ const ProfilePage = () => {
     const sameEmail = initialFormState.email === email;
     const samePassword = initialFormState.password === password;
 
-    if (sameName && sameEmail && samePassword) return true;
-    return false;
+    return sameName && sameEmail && samePassword;
   }, [
     name,
     email,
@@ -122,20 +90,6 @@ const ProfilePage = () => {
     dispatch(updateUserInfo({ newInfo, accessToken }));
   };
 
-  // Loading screen
-  if (loading) {
-    return <Loader text={loadingText} />;
-  }
-
-  if (!orders.length) {
-    console.log("IF in !orders.length");
-    return (
-      <p className="text text_type_main-middle">
-        Загружаем вашу ленту заказов...
-      </p>
-    );
-  }
-
   return (
     <div className={cl.profile__wrapper}>
       <AccountLinks accLinks={accLinks} />
@@ -157,10 +111,7 @@ const ProfilePage = () => {
             />
           }
         />
-        <Route
-          path="orders"
-          element={<FeedOrderCard orders={orders} ingredients={ingredients} />}
-        />
+        <Route path="orders" element={<FeedOrderCard mw="844" />} />
       </Routes>
     </div>
   );

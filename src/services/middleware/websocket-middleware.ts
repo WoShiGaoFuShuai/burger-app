@@ -36,17 +36,13 @@ export const socketMiddleware = <R>(
       if (connect.match(action)) {
         socket = new WebSocket(action.payload);
         url = action.payload;
-        console.log(url);
-
         isConnected = true;
 
         socket.onopen = () => {
-          console.log("WebSocket connection established");
           dispatch(onOpen());
         };
 
         socket.onerror = () => {
-          console.log("WebSocket ERROR");
           dispatch(onError("Error"));
         };
 
@@ -63,13 +59,11 @@ export const socketMiddleware = <R>(
           const { data } = e;
           try {
             const parsedData = JSON.parse(data);
-            console.log("paresr", parsedData);
 
             if (
               withTokenRefresh &&
               parsedData.message === "Invalid or missing token"
             ) {
-              console.log("???");
               AuthService.updateAccessToken()
                 .then((newAccessToken) => {
                   const wssUrl = new URL(url);
@@ -84,7 +78,6 @@ export const socketMiddleware = <R>(
 
               return;
             }
-            console.log("Dispatching onMessage:", onMessage); // Добавь
             dispatch(onMessage(parsedData));
           } catch (err) {
             dispatch(onError((err as Error).message));

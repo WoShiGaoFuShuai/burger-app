@@ -35,7 +35,6 @@ const ordersFeedProfileSlice = createSlice({
       state.connectionError = action.payload;
     },
     wsMessageProfile: (state, action: PayloadAction<MessageFeedOrders>) => {
-      console.log("IN REDUCER", action);
       state.success = action.payload.success;
       state.orders = action.payload.orders;
       state.total = action.payload.total;

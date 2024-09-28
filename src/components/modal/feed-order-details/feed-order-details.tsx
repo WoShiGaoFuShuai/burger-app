@@ -4,8 +4,8 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from "./feed-order-details.module.css";
-import { useAppDispatch, useAppSelector } from "@/services/hooks";
-import { useParams, useNavigate, useLocation } from "react-router-dom"; // Добавил useNavigate
+import { useAppSelector } from "@/services/hooks";
+import { useParams, useLocation } from "react-router-dom"; // Добавил useNavigate
 import { ordersFeedAllSelectors } from "@/services/orders-feed-all/reducer";
 import { ingredientsSelectors } from "@/services/ingredients/reducer";
 import { IngredientsData } from "@/types/interface.ingredients";
@@ -14,8 +14,6 @@ import { FeedOrder } from "@/types/interface.orders-feed";
 import Loader from "@/components/ui/loader/loader";
 
 const FeedOrderDetails: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate(); // Добавил useNavigate, если требуется
   const { id: paramsOrderNumber } = useParams<{ id: string }>();
   const { orders } = useAppSelector(ordersFeedAllSelectors.getOrdersFeedState);
   const { ingredients } = useAppSelector(

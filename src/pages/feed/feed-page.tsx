@@ -9,7 +9,6 @@ import {
   wsConnect,
   wsDisconnect,
 } from "@/services/orders-feed-all/actions";
-import { ingredientsSelectors } from "@/services/ingredients/reducer";
 
 const FeedPage = () => {
   const dispatch = useAppDispatch();
@@ -24,16 +23,6 @@ const FeedPage = () => {
     };
   }, [dispatch]);
 
-  const { ingredients } = useAppSelector(
-    ingredientsSelectors.getAllIngredients
-  );
-
-  let uniqueIngredients = new Set();
-
-  ingredients.forEach((ingredient) =>
-    uniqueIngredients.add(ingredient.image_mobile)
-  );
-
   if (!orders.length) {
     return (
       <p className="text text_type_main-large">Загружаем ленту заказов...</p>
@@ -47,7 +36,7 @@ const FeedPage = () => {
       </p>
 
       <div className={cl.feed_content}>
-        <FeedOrderCard orders={orders} ingredients={ingredients} />
+        <FeedOrderCard />
 
         <FeedInfo />
       </div>

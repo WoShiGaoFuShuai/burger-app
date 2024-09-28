@@ -19,7 +19,6 @@ const AppHeader = () => {
   if (user?.name) {
     textCabinet = user.name;
   }
-  //
 
   return (
     <header className={cl.header}>

@@ -1,34 +1,78 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from "./feed-order-card.module.css";
-import { useLocation, useNavigate } from "react-router-dom";
-// import { useAppDispatch } from "@/services/hooks";
+import { useLocation, useMatch, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { FeedOrder } from "@/types/interface.orders-feed";
-import { IngredientsData } from "@/types/interface.ingredients";
 import { calculateTotalPrice } from "@/utils/calculate-total-price";
+import { getAccessToken } from "@/utils/local-storage";
+import { ingredientsSelectors } from "@/services/ingredients/reducer";
+import { ordersFeedAllSelectors } from "@/services/orders-feed-all/reducer";
+import { ordersFeedProfileSelectors } from "@/services/orders-feed-profile/reducer";
+import {
+  URL_FEED_ORDERS_PROFILE,
+  wsConnectProfile,
+  wsDisconnectProfile,
+} from "@/services/orders-feed-profile/actions";
 
 // import { addItemToFeedModal } from "@/services/feed/reducer";
 
 interface FeedOrderCardProps {
-  orders: FeedOrder[];
-  ingredients: IngredientsData[];
+  mw?: string;
 }
 
-const FeedOrderCard: React.FC<FeedOrderCardProps> = ({
-  orders,
-  ingredients,
-}) => {
+const FeedOrderCard: React.FC<FeedOrderCardProps> = ({ mw }) => {
   const visibleImagesAmount = 5;
   const location = useLocation();
   const navigate = useNavigate();
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  const { ingredients } = useAppSelector(
+    ingredientsSelectors.getAllIngredients
+  );
+
+  const inProfile = useMatch({
+    path: "/profile/orders",
+    end: true,
+    caseSensitive: true,
+  });
+
+  const ordersSelector = !inProfile
+    ? ordersFeedAllSelectors.getOrdersFeedState
+    : ordersFeedProfileSelectors.getOrdersFeedProfileState;
+
+  const { orders } = useAppSelector(ordersSelector);
+
+  useEffect(() => {
+    if (inProfile) {
+      const accessToken = getAccessToken();
+      dispatch(
+        wsConnectProfile(`${URL_FEED_ORDERS_PROFILE}?token=${accessToken}`)
+      );
+    }
+
+    return () => {
+      if (inProfile) {
+        dispatch(wsDisconnectProfile());
+      }
+    };
+  }, [dispatch]);
 
   if (!orders.length) {
-    return null;
+    return (
+      <p className="text text_type_main-middle">
+        Загружаем вашу ленту заказов...
+      </p>
+    );
   }
+
+  let uniqueIngredients = new Set();
+
+  ingredients.forEach((ingredient) =>
+    uniqueIngredients.add(ingredient.image_mobile)
+  );
 
   const handleOrderCardClick = (orderNumber: number) => {
     const linkPath = location.pathname.includes("/profile")
@@ -93,7 +137,7 @@ const FeedOrderCard: React.FC<FeedOrderCardProps> = ({
   };
 
   return (
-    <div className={cl.feed_orders}>
+    <div className={cl.feed_orders} style={{ maxWidth: `${mw}px` }}>
       {orders
         .filter((order) => {
           // Проверяем, что order существует и не пустой
@@ -128,9 +172,18 @@ const FeedOrderCard: React.FC<FeedOrderCardProps> = ({
               <div className="feed__order-title">
                 <p className="text text_type_main-medium">{order.name}</p>
               </div>
-              <div className={cl.feed_order_info}>
-                {/* {index === 0 ? findIngredientImages(order) : null} */}
+              {inProfile && (
+                <p
+                  className="text text_type_main-small"
+                  style={{
+                    color: order.status === "done" ? "var(--green)" : "",
+                  }}
+                >
+                  {order.status}
+                </p>
+              )}
 
+              <div className={cl.feed_order_info}>
                 {findIngredientImages(order)}
                 <div className={cl.order__info_price}>
                   <span className="text text_type_digits-default">
