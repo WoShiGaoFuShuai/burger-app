@@ -8,12 +8,12 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
 import {
   removeConstructorItem,
   moveConstructorIngredient,
 } from "@/services/burger-constructor/reducer";
 import { subtractCounter } from "@/services/ingredients/reducer";
+import { useAppDispatch } from "@/services/hooks";
 
 interface ConstructorElementDraggableProps {
   burgerConstructorIngredient: IngredientsDataWithKey;
@@ -24,7 +24,7 @@ const ConstructorElementDraggable: React.FC<
   ConstructorElementDraggableProps
 > = ({ burgerConstructorIngredient, index }) => {
   const ref = useRef<HTMLLIElement>(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [, drop] = useDrop({
     accept: "constructor-element",

@@ -48,7 +48,11 @@ function App() {
   const closeModal = () => {
     dispatch(clearItemShowInModal());
     removeSsItem("itemInModal");
-    navigate(-1);
+    if (location.pathname.includes("/profile/orders/")) {
+      navigate("/profile/orders");
+    } else {
+      navigate(-1);
+    }
   };
 
   // logic for showing popup even after reloading a page
@@ -144,9 +148,13 @@ function App() {
           <Route
             path="profile/orders/:id"
             element={
-              <Modal title="Детали заказа" onClose={closeModal}>
-                <FeedOrderDetails />
-              </Modal>
+              <ProtectedRoute
+                element={
+                  <Modal title="Детали заказа" onClose={closeModal}>
+                    <FeedOrderDetails />
+                  </Modal>
+                }
+              />
             }
           />
         </Routes>
