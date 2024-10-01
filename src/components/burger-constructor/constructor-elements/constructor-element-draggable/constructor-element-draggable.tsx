@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import type { XYCoord } from "dnd-core";
 import cl from "./constructor-element-draggable.module.css";
 
-import { IngredientsDataWithKey } from "@/types/interface.ingredients";
+import { IngredientsDataWithKey } from "../../../../types/interface.ingredients";
 import {
   ConstructorElement,
   DragIcon,
@@ -11,9 +11,9 @@ import { useDrag, useDrop } from "react-dnd";
 import {
   removeConstructorItem,
   moveConstructorIngredient,
-} from "@/services/burger-constructor/reducer";
-import { subtractCounter } from "@/services/ingredients/reducer";
-import { useAppDispatch } from "@/services/hooks";
+} from "../../../../services/burger-constructor/reducer";
+import { subtractCounter } from "../../../../services/ingredients/reducer";
+import { useAppDispatch } from "../../../../services/hooks";
 
 interface ConstructorElementDraggableProps {
   burgerConstructorIngredient: IngredientsDataWithKey;

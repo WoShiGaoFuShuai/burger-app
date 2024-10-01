@@ -1,5 +1,5 @@
-import { IngredientsData } from "@/types/interface.ingredients";
-import { checkResponse } from "@/utils/auth";
+import { IngredientsData } from "../types/interface.ingredients";
+import { checkResponse } from "../utils/auth";
 const URL: string = "https://norma.nomoreparties.space/api/ingredients";
 
 export interface ApiResponse {

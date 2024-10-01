@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import "@/App.css";
-import AppHeader from "@/components/header/app-header";
+import "./App.css";
+import AppHeader from "./components/header/app-header";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import {
   HomePage,
@@ -12,15 +12,15 @@ import {
   IngredientPage,
   NotFoundPage,
   FeedPage,
-} from "@/pages";
-import { useAppDispatch, useAppSelector } from "@/services/hooks";
-import { getUser } from "@/services/auth/actions";
-import Loader from "@/components/ui/loader/loader";
+} from "./pages";
+import { useAppDispatch, useAppSelector } from "./services/hooks";
+import { getUser } from "./services/auth/actions";
+import Loader from "./components/ui/loader/loader";
 import { authSelectors } from "./services/auth/reducer";
-import { getAccessToken } from "@/utils/local-storage";
-import ProtectedRoute from "@/components/protected-routes/protected-route/protected-route";
-import GuestRoute from "@/components/protected-routes/guest-route/guest-route";
-import ResetPasswordGuard from "@/components/protected-routes/guards/reset-password-guard/reset-password-guard";
+import { getAccessToken } from "./utils/local-storage";
+import ProtectedRoute from "./components/protected-routes/protected-route/protected-route";
+import GuestRoute from "./components/protected-routes/guest-route/guest-route";
+import ResetPasswordGuard from "./components/protected-routes/guards/reset-password-guard/reset-password-guard";
 import Modal from "./components/modal/modal";
 import IngredientDetails from "./components/modal/ingredient-details/ingredient-details";
 import {
@@ -29,9 +29,9 @@ import {
   itemShowInModalSelectors,
 } from "./services/item-show-in-modal/reducer";
 import { IngredientsData } from "./types/interface.ingredients";
-import { getSsItem, removeSsItem } from "@/utils/session-storage";
-import { loadIngredients } from "@/services/ingredients/actions";
-import FeedOrderDetails from "@/components/modal/feed-order-details/feed-order-details";
+import { getSsItem, removeSsItem } from "./utils/session-storage";
+import { loadIngredients } from "./services/ingredients/actions";
+import FeedOrderDetails from "./components/modal/feed-order-details/feed-order-details";
 
 function App() {
   const dispatch = useAppDispatch();

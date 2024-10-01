@@ -1,6 +1,6 @@
 import React from "react";
 import cl from "./header-item.module.css";
-import { TIconTypes } from "@/components/header/types.header";
+import { TIconTypes } from "../../../components/header/types.header";
 import { NavLink } from "react-router-dom";
 
 interface HeaderItemProps {

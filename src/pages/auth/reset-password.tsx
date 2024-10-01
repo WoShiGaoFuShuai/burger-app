@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import FormLinks from "@/components/ui/form/form-links";
-import { forgotPasswordLinks } from "@/utils/reg-links-data";
-import AppForm from "@/components/ui/form/app-form";
-import AuthService from "@/API/auth-service";
+import FormLinks from "../../components/ui/form/form-links";
+import { forgotPasswordLinks } from "../../utils/reg-links-data";
+import AppForm from "../../components/ui/form/app-form";
+import AuthService from "../../API/auth-service";
 import { useNavigate } from "react-router-dom";
-import Loader from "@/components/ui/loader/loader";
-import { removeLsItem } from "@/utils/local-storage";
+import Loader from "../../components/ui/loader/loader";
+import { removeLsItem } from "../../utils/local-storage";
 
 const ResetPasswordPage = () => {
   const [password, setPassword] = useState("");

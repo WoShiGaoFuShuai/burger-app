@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from "./constructor-elements.module.css";
-import { IngredientsData } from "@/types/interface.ingredients";
-import EmptyBun from "@/components/burger-constructor/constructor-empty-element/constructor-empty-element";
+import { IngredientsData } from "../../../types/interface.ingredients";
+import EmptyBun from "../../burger-constructor/constructor-empty-element/constructor-empty-element";
 import { useDrop } from "react-dnd";
-import { useAppSelector, useAppDispatch } from "@/services/hooks";
-import { addConstructorItem } from "@/services/burger-constructor/reducer";
-import { burgerConstructorSelectors } from "@/services/burger-constructor/reducer";
-import { addCounter } from "@/services/ingredients/reducer";
+import { useAppSelector, useAppDispatch } from "../../../services/hooks";
+import { addConstructorItem } from "../../../services/burger-constructor/reducer";
+import { burgerConstructorSelectors } from "../../../services/burger-constructor/reducer";
+import { addCounter } from "../../../services/ingredients/reducer";
 import ConstructorElementDraggable from "./constructor-element-draggable/constructor-element-draggable";
 
 const ConstructorElements = () => {

@@ -1,4 +1,4 @@
-import { IngredientsDataWithKey } from "@/types/interface.ingredients";
+import { IngredientsDataWithKey } from "../../types/interface.ingredients";
 import {
   createSelector,
   createSlice,

@@ -1,4 +1,4 @@
-import { checkResponse } from "@/utils/auth";
+import { checkResponse } from "../utils/auth";
 const ORDER_URL: string = "https://norma.nomoreparties.space/api/orders";
 
 export interface OrderApiResponse {

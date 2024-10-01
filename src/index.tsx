@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./css/reset.css";
 import "./index.css";
-import "@/css/common.css";
+import "./css/common.css";
 import App from "./App";
 import { Provider } from "react-redux";
-import { store } from "@/services/store";
+import { store } from "./services/store";
 import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(

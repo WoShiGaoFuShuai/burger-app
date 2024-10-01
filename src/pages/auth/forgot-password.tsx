@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import FormLinks from "@/components/ui/form/form-links";
-import { forgotPasswordLinks } from "@/utils/reg-links-data";
-import AppForm from "@/components/ui/form/app-form";
-import AuthService from "@/API/auth-service";
-import Loader from "@/components/ui/loader/loader";
+import FormLinks from "../../components/ui/form/form-links";
+import { forgotPasswordLinks } from "../../utils/reg-links-data";
+import AppForm from "../../components/ui/form/app-form";
+import AuthService from "../../API/auth-service";
+import Loader from "../../components/ui/loader/loader";
 import { useNavigate } from "react-router-dom";
-import { setLsItem } from "@/utils/local-storage";
+import { setLsItem } from "../../utils/local-storage";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");

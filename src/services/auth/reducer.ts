@@ -1,4 +1,4 @@
-import { RegisterApiResponse, UserAuthNoPassword } from "@/utils/auth";
+import { RegisterApiResponse, UserAuthNoPassword } from "../../utils/auth";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   registerUser,
@@ -6,13 +6,13 @@ import {
   logoutUser,
   loginUser,
   updateUserInfo,
-} from "@/services/auth/actions";
+} from "../auth/actions";
 import { RootState } from "../store";
 import {
   clearTokens,
   setAccessToken,
   setRefreshToken,
-} from "@/utils/local-storage";
+} from "../../utils/local-storage";
 
 interface AuthState {
   user: UserAuthNoPassword | null;
@@ -21,7 +21,7 @@ interface AuthState {
   loadingText: string;
 }
 
-const initialState: AuthState = {
+export const initialState: AuthState = {
   user: null,
   loading: false,
   error: null,

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { MessageFeedOrders } from "@/types/interface.orders-feed";
+import { MessageFeedOrders } from "../../types/interface.orders-feed";
 
 export enum WebsocketStatus {
   CONNECTING = "CONNECTING...",

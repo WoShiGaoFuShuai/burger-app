@@ -4,8 +4,8 @@ import {
   UserAuthInterface,
   UserAuthLogin,
   UpdateUserInfoRequestPayload,
-} from "@/utils/auth";
-import AuthService from "@/API/auth-service";
+} from "../../utils/auth";
+import AuthService from "../../API/auth-service";
 
 export const registerUser = createAsyncThunk<
   RegisterApiResponse,

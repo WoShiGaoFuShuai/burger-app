@@ -1,6 +1,6 @@
 import React from "react";
 import cl from "./account-links.module.css";
-import { AccountLinkObject } from "@/pages/account/profile";
+import { AccountLinkObject } from "../../pages/account/profile";
 
 interface AccountsLinksProps {
   accLinks: AccountLinkObject[];

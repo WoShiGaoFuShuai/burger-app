@@ -4,14 +4,14 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from "./constructor-submit.module.css";
-import { burgerConstructorSelectors } from "@/services/burger-constructor/reducer";
-import { sendOrder } from "@/services/create-order/actions";
-import { clearState } from "@/services/burger-constructor/reducer";
-import { OrderData } from "@/API/order-service";
-import { useAppSelector, useAppDispatch } from "@/services/hooks";
-import { authSelectors } from "@/services/auth/reducer";
+import { burgerConstructorSelectors } from "../../../services/burger-constructor/reducer";
+import { sendOrder } from "../../../services/create-order/actions";
+import { clearState } from "../../../services/burger-constructor/reducer";
+import { OrderData } from "../../../API/order-service";
+import { useAppSelector, useAppDispatch } from "../../../services/hooks";
+import { authSelectors } from "../../../services/auth/reducer";
 import { useLocation, useNavigate } from "react-router-dom";
-import { clearCounters } from "@/services/ingredients/reducer";
+import { clearCounters } from "../../../services/ingredients/reducer";
 
 interface ConstructorSubmitProps {
   setIsShowModal: (value: boolean) => void;

@@ -4,7 +4,7 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IngredientsData } from "@/types/interface.ingredients";
+import { IngredientsData } from "../../../types/interface.ingredients";
 import { useDrag } from "react-dnd";
 import { useLocation, useNavigate } from "react-router-dom";
 

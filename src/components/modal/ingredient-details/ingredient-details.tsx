@@ -1,6 +1,6 @@
 import React from "react";
 import cl from "./ingredient-details.module.css";
-import { IngredientsData } from "@/types/interface.ingredients";
+import { IngredientsData } from "../../../types/interface.ingredients";
 
 interface IngredientDetailsProps {
   item: IngredientsData | null;

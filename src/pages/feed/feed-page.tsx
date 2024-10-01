@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import FeedOrderCard from "@/components/feed/feed-order-card/feed-order-card";
+import FeedOrderCard from "../../components/feed/feed-order-card/feed-order-card";
 import cl from "./feed-page.module.css";
-import FeedInfo from "@/components/feed/feed-info/feed-info";
-import { useAppDispatch, useAppSelector } from "@/services/hooks";
-import { ordersFeedAllSelectors } from "@/services/orders-feed-all/reducer";
+import FeedInfo from "../../components/feed/feed-info/feed-info";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { ordersFeedAllSelectors } from "../../services/orders-feed-all/reducer";
 import {
   URL_FEED_ORDERS_ALL,
   wsConnect,
   wsDisconnect,
-} from "@/services/orders-feed-all/actions";
+} from "../../services/orders-feed-all/actions";
 
 const FeedPage = () => {
   const dispatch = useAppDispatch();
