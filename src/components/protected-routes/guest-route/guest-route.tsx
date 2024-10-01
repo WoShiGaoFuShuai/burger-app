@@ -16,7 +16,12 @@ const GuestRoute: React.FC<GuestRouteProps> = ({ element }) => {
   }
 
   if (user) {
-    return <Navigate to={location.state?.from ?? "/"} />;
+    return (
+      <Navigate
+        to={location.state?.from ?? "/"}
+        state={location.state?.from?.state}
+      />
+    );
   }
 
   return element;

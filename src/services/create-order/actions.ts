@@ -11,6 +11,7 @@ export const sendOrder = createAsyncThunk<
   "create-order/sendOrder",
   async (orderData: OrderData, { rejectWithValue }) => {
     const accessToken = getAccessToken() || "";
+
     const response: OrderApiResponse = await OrderService.createOrder(
       orderData,
       accessToken

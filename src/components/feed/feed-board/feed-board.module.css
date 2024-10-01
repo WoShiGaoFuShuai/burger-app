@@ -1,0 +1,24 @@
+.feed_info_nums {
+  display: flex;
+  justify-content: space-between;
+  gap: 36px;
+  flex-basis: 100%;
+}
+
+.nums_ready {
+  flex-basis: 100%;
+}
+
+.title {
+  margin-bottom: 24px;
+}
+
+.nums_columns {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 156px;
+  gap: 8px;
+  justify-content: space-between;
+  align-content: space-between;
+}

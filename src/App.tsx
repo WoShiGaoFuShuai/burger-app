@@ -11,6 +11,7 @@ import {
   ProfilePage,
   IngredientPage,
   NotFoundPage,
+  FeedPage,
 } from "@/pages";
 import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { getUser } from "@/services/auth/actions";
@@ -28,8 +29,9 @@ import {
   itemShowInModalSelectors,
 } from "./services/item-show-in-modal/reducer";
 import { IngredientsData } from "./types/interface.ingredients";
-import { getSsItem, removeSsItem } from "./utils/session-storage";
-import { loadIngredients } from "./services/ingredients/actions";
+import { getSsItem, removeSsItem } from "@/utils/session-storage";
+import { loadIngredients } from "@/services/ingredients/actions";
+import FeedOrderDetails from "@/components/modal/feed-order-details/feed-order-details";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -46,7 +48,11 @@ function App() {
   const closeModal = () => {
     dispatch(clearItemShowInModal());
     removeSsItem("itemInModal");
-    navigate(-1);
+    if (location.pathname.includes("/profile/orders/")) {
+      navigate("/profile/orders");
+    } else {
+      navigate(-1);
+    }
   };
 
   // logic for showing popup even after reloading a page
@@ -96,14 +102,21 @@ function App() {
           path="/forgot-password"
           element={<GuestRoute element={<ForgotPasswordPage />} />}
         ></Route>
+        <Route path="/feed" element={<FeedPage />}></Route>
+        <Route path="/feed/:id" element={<FeedOrderDetails />}></Route>
         <Route
           path="/reset-password"
           element={<ResetPasswordGuard element={<ResetPasswordPage />} />}
         ></Route>
         <Route
-          path="/profile"
+          path="/profile/*"
           element={<ProtectedRoute element={<ProfilePage />} />}
         ></Route>
+        <Route
+          path="/profile/orders/:id"
+          element={<ProtectedRoute element={<FeedOrderDetails />} />}
+        ></Route>
+
         <Route path="/ingredients/:id" element={<IngredientPage />} />
 
         <Route path="*" element={<NotFoundPage />}></Route>
@@ -119,6 +132,31 @@ function App() {
               </Modal>
             }
           ></Route>
+        </Routes>
+      )}
+
+      {bg && (
+        <Routes>
+          <Route
+            path="feed/:id"
+            element={
+              <Modal title="Детали заказа" onClose={closeModal}>
+                <FeedOrderDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="profile/orders/:id"
+            element={
+              <ProtectedRoute
+                element={
+                  <Modal title="Детали заказа" onClose={closeModal}>
+                    <FeedOrderDetails />
+                  </Modal>
+                }
+              />
+            }
+          />
         </Routes>
       )}
     </div>

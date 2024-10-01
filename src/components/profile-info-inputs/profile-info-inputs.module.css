@@ -1,0 +1,15 @@
+.profile__inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.btns__wrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+}
+
+.d_none {
+  display: none;
+}

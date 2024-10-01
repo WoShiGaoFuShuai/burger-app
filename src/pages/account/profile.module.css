@@ -2,23 +2,13 @@
   display: flex;
   gap: 60px;
   max-width: 1280px;
-  margin: 120px auto 0;
+  /* margin: 120px auto 0; */
+  margin: 40px auto 0;
   padding: 0 20px;
   box-sizing: border-box;
 }
 
-.profile__inputs {
+.profile__orders_wrapper {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-}
-
-.btns__wrapper {
-  display: flex;
-  gap: 20px;
-  justify-content: flex-end;
-}
-
-.d_none {
-  display: none;
 }
