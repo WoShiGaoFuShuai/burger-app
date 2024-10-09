@@ -5,20 +5,18 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from "./feed-order-card.module.css";
 import { useLocation, useMatch, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/services/hooks";
-import { FeedOrder } from "@/types/interface.orders-feed";
-import { calculateTotalPrice } from "@/utils/calculate-total-price";
-import { getAccessToken } from "@/utils/local-storage";
-import { ingredientsSelectors } from "@/services/ingredients/reducer";
-import { ordersFeedAllSelectors } from "@/services/orders-feed-all/reducer";
-import { ordersFeedProfileSelectors } from "@/services/orders-feed-profile/reducer";
+import { useAppDispatch, useAppSelector } from "../../../services/hooks";
+import { FeedOrder } from "../../../types/interface.orders-feed";
+import { calculateTotalPrice } from "../../../utils/calculate-total-price";
+import { getAccessToken } from "../../../utils/local-storage";
+import { ingredientsSelectors } from "../../../services/ingredients/reducer";
+import { ordersFeedAllSelectors } from "../../../services/orders-feed-all/reducer";
+import { ordersFeedProfileSelectors } from "../../../services/orders-feed-profile/reducer";
 import {
   URL_FEED_ORDERS_PROFILE,
   wsConnectProfile,
   wsDisconnectProfile,
-} from "@/services/orders-feed-profile/actions";
-
-// import { addItemToFeedModal } from "@/services/feed/reducer";
+} from "../../../services/orders-feed-profile/actions";
 
 interface FeedOrderCardProps {
   mw?: string;

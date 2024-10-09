@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from "./constructor-elements.module.css";
-import { IngredientsData } from "@/types/interface.ingredients";
-import EmptyBun from "@/components/burger-constructor/constructor-empty-element/constructor-empty-element";
+import { IngredientsData } from "../../../types/interface.ingredients";
+import EmptyBun from "../../burger-constructor/constructor-empty-element/constructor-empty-element";
 import { useDrop } from "react-dnd";
-import { useAppSelector, useAppDispatch } from "@/services/hooks";
-import { addConstructorItem } from "@/services/burger-constructor/reducer";
-import { burgerConstructorSelectors } from "@/services/burger-constructor/reducer";
-import { addCounter } from "@/services/ingredients/reducer";
+import { useAppSelector, useAppDispatch } from "../../../services/hooks";
+import { addConstructorItem } from "../../../services/burger-constructor/reducer";
+import { burgerConstructorSelectors } from "../../../services/burger-constructor/reducer";
+import { addCounter } from "../../../services/ingredients/reducer";
 import ConstructorElementDraggable from "./constructor-element-draggable/constructor-element-draggable";
 
 const ConstructorElements = () => {
@@ -46,11 +46,15 @@ const ConstructorElements = () => {
   }, [isOver]);
 
   return (
-    <ul ref={dropTarget} className={cl.items__wrapper}>
+    <ul
+      ref={dropTarget}
+      className={cl.items__wrapper}
+      data-constructor-items-wrapper
+    >
       {burgerConstructorIngredients.bun === null ? (
         <EmptyBun type="top" elementType={draggedItemType} />
       ) : (
-        <li>
+        <li data-constructor-el-top>
           <ConstructorElement
             type="top"
             isLocked={true}
@@ -78,7 +82,7 @@ const ConstructorElements = () => {
       {burgerConstructorIngredients.bun === null ? (
         <EmptyBun elementType={draggedItemType} type="bottom" />
       ) : (
-        <li>
+        <li data-constructor-el-bottom>
           <ConstructorElement
             type="bottom"
             isLocked={true}

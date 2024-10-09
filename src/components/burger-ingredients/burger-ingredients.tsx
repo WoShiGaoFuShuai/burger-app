@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import cl from "@/components/burger-ingredients/burger-ingredients.module.css";
-import IngredientsGroup from "@/components/burger-ingredients/ingredients-group/ingredients-group";
+import cl from "../../components/burger-ingredients/burger-ingredients.module.css";
+import IngredientsGroup from "../../components/burger-ingredients/ingredients-group/ingredients-group";
 
-import TabsRender from "@/components/tabs/tabs";
-import { tabsValues } from "@/utils/tabs-data";
-import { useAppSelector } from "@/services/hooks";
-import { ingredientsSelectors } from "@/services/ingredients/reducer";
-import { scrollTabHandler } from "@/utils/scroll";
+import TabsRender from "../../components/tabs/tabs";
+import { tabsValues } from "../../utils/tabs-data";
+import { useAppSelector } from "../../services/hooks";
+import { ingredientsSelectors } from "../../services/ingredients/reducer";
+import { scrollTabHandler } from "../../utils/scroll";
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState("one");

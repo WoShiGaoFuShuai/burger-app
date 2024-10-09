@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducer";
 import { socketMiddleware } from "./middleware/websocket-middleware";
-import { MessageFeedOrders } from "@/types/interface.orders-feed";
+import { MessageFeedOrders } from "../types/interface.orders-feed";
 import { wsConnect, wsDisconnect } from "./orders-feed-all/actions";
 import {
   wsConnectProfile,

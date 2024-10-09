@@ -1,12 +1,12 @@
 import React from "react";
-import BurgerIngredients from "@/components/burger-ingredients/burger-ingredients";
-import BurgerConstructor from "@/components/burger-constructor/burger-constructor";
-import Loader from "@/components/ui/loader/loader";
+import BurgerIngredients from "../components/burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../components/burger-constructor/burger-constructor";
+import Loader from "../components/ui/loader/loader";
 
-import { useAppSelector } from "@/services/hooks";
+import { useAppSelector } from "../services/hooks";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { ingredientsSelectors } from "@/services/ingredients/reducer";
+import { ingredientsSelectors } from "../services/ingredients/reducer";
 
 const HomePage = () => {
   const { ingredients, loading } = useAppSelector(

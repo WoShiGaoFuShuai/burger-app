@@ -15,7 +15,7 @@ interface OrdersInfoState {
   error: null | string;
 }
 
-const initialState: OrdersInfoState = {
+export const initialState: OrdersInfoState = {
   order: null,
   loading: false,
   error: null,

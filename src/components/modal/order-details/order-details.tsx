@@ -1,8 +1,8 @@
 import React from "react";
 import cl from "./order-details.module.css";
-import doneImg from "@/images/done.png";
-import { useAppSelector } from "@/services/hooks";
-import { orderInfoSelectors } from "@/services/create-order/reducer";
+import doneImg from "../../../images/done.png";
+import { useAppSelector } from "../../../services/hooks";
+import { orderInfoSelectors } from "../../../services/create-order/reducer";
 
 const OrderDetails = () => {
   const currentOrder = useAppSelector(orderInfoSelectors.getOrder);

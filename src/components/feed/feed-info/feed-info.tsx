@@ -1,8 +1,8 @@
 import React from "react";
 import cl from "./feed-info.module.css";
 import FeedBoard from "../feed-board/feed-board";
-import { useAppSelector } from "@/services/hooks";
-import { ordersFeedAllSelectors } from "@/services/orders-feed-all/reducer";
+import { useAppSelector } from "../../../services/hooks";
+import { ordersFeedAllSelectors } from "../../../services/orders-feed-all/reducer";
 
 const FeedInfo = () => {
   const { orders, total, totalToday } = useAppSelector(

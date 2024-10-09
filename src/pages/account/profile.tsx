@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from "react";
-import AccountLinks from "@/components/account/account-links";
+import AccountLinks from "../../components/account/account-links";
 import cl from "./profile.module.css";
-import { useAppDispatch, useAppSelector } from "@/services/hooks";
-import { logoutUser, updateUserInfo } from "@/services/auth/actions";
-import { getAccessToken, getRefreshToken } from "@/utils/local-storage";
-import { authSelectors } from "@/services/auth/reducer";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { logoutUser, updateUserInfo } from "../../services/auth/actions";
+import { getAccessToken, getRefreshToken } from "../../utils/local-storage";
+import { authSelectors } from "../../services/auth/reducer";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import ProfileInfoInputs from "@/components/profile-info-inputs/profile-info-inputs";
-import FeedOrderCard from "@/components/feed/feed-order-card/feed-order-card";
+import ProfileInfoInputs from "../../components/profile-info-inputs/profile-info-inputs";
+import FeedOrderCard from "../../components/feed/feed-order-card/feed-order-card";
 
 export interface AccountLinkObject {
   title: string;

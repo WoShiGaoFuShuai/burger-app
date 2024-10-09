@@ -1,4 +1,4 @@
-import { IngredientsDataWithKey } from "@/types/interface.ingredients";
+import { IngredientsDataWithKey } from "../../types/interface.ingredients";
 import {
   createSelector,
   createSlice,
@@ -12,7 +12,7 @@ export interface BurgerConstructorState {
   ingredients: IngredientsDataWithKey[];
 }
 
-const initialState: BurgerConstructorState = {
+export const initialState: BurgerConstructorState = {
   bun: null,
   ingredients: [],
 };

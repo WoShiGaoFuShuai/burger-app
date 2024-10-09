@@ -1,8 +1,8 @@
-import { IngredientsData } from "@/types/interface.ingredients";
+import { IngredientsData } from "../../types/interface.ingredients";
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "@/services/store";
+import { RootState } from "../../services/store";
 
-import { loadIngredients } from "@/services/ingredients/actions";
+import { loadIngredients } from "../../services/ingredients/actions";
 
 export interface IngredientsState {
   ingredients: IngredientsData[];
@@ -12,7 +12,7 @@ export interface IngredientsState {
   previousBun: null | IngredientsData;
 }
 
-const initialState: IngredientsState = {
+export const initialState: IngredientsState = {
   ingredients: [],
   error: null,
   loading: false,

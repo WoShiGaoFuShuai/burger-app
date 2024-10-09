@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { MessageFeedOrders } from "@/types/interface.orders-feed";
+import { MessageFeedOrders } from "../../types/interface.orders-feed";
 
 export enum WebsocketStatus {
   CONNECTING = "CONNECTING...",
@@ -13,7 +13,7 @@ interface FeedState extends MessageFeedOrders {
   connectionError: string | null;
 }
 
-const initialState: FeedState = {
+export const initialState: FeedState = {
   status: "",
   orders: [],
   success: false,

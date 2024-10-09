@@ -1,4 +1,4 @@
-import { getLsItem } from "@/utils/local-storage";
+import { getLsItem } from "../../../../utils/local-storage";
 import React from "react";
 import { Navigate } from "react-router-dom";
 

@@ -19,7 +19,7 @@ const AppForm: React.FC<AppFormProps> = ({
       <p className="text text_type_main-medium">{title}</p>
       {inputs}
 
-      <Button htmlType="submit" type="primary" size="large">
+      <Button htmlType="submit" type="primary" size="large" data-login-btn>
         {btnText}
       </Button>
     </form>

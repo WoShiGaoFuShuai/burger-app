@@ -4,7 +4,7 @@ import {
   Middleware,
 } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import AuthService from "@/API/auth-service";
+import AuthService from "../../API/auth-service";
 
 export type TWsActionTypes<R> = {
   connect: ActionCreatorWithPayload<string>;

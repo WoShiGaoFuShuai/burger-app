@@ -1,4 +1,4 @@
-import { TabValue } from "@/types/interfaces.tabs";
+import { TabValue } from "../types/interfaces.tabs";
 
 export const tabsValues: TabValue[] = [
   { value: "one", name: "Булки" },

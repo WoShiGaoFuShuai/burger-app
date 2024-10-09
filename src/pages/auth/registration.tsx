@@ -1,13 +1,13 @@
 import React, { useRef, useState } from "react";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import FormLinks from "@/components/ui/form/form-links";
-import { registrationLinks } from "@/utils/reg-links-data";
-import AppForm from "@/components/ui/form/app-form";
-import { UserAuthInterface } from "@/utils/auth";
-import { registerUser } from "@/services/auth/actions";
-import { useAppDispatch, useAppSelector } from "@/services/hooks";
-import { authSelectors } from "@/services/auth/reducer";
-import Loader from "@/components/ui/loader/loader";
+import FormLinks from "../../components/ui/form/form-links";
+import { registrationLinks } from "../../utils/reg-links-data";
+import AppForm from "../../components/ui/form/app-form";
+import { UserAuthInterface } from "../../utils/auth";
+import { registerUser } from "../../services/auth/actions";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { authSelectors } from "../../services/auth/reducer";
+import Loader from "../../components/ui/loader/loader";
 import { useNavigate } from "react-router-dom";
 
 const RegistrationPage = () => {

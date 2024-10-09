@@ -1,4 +1,4 @@
-import { MessageFeedOrders } from "@/types/interface.orders-feed";
+import { MessageFeedOrders } from "../../types/interface.orders-feed";
 import { createAction } from "@reduxjs/toolkit";
 
 export const URL_FEED_ORDERS_PROFILE = "wss://norma.nomoreparties.space/orders";

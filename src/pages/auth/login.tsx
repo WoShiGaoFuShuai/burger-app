@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import FormLinks from "@/components/ui/form/form-links";
-import { loginLinks } from "@/utils/reg-links-data";
-import AppForm from "@/components/ui/form/app-form";
-import { UserAuthLogin } from "@/utils/auth";
-import { useAppDispatch, useAppSelector } from "@/services/hooks";
-import { loginUser } from "@/services/auth/actions";
-import { authSelectors } from "@/services/auth/reducer";
-import Loader from "@/components/ui/loader/loader";
+import FormLinks from "../../components/ui/form/form-links";
+import { loginLinks } from "../../utils/reg-links-data";
+import AppForm from "../../components/ui/form/app-form";
+import { UserAuthLogin } from "../../utils/auth";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { loginUser } from "../../services/auth/actions";
+import { authSelectors } from "../../services/auth/reducer";
+import Loader from "../../components/ui/loader/loader";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
@@ -62,6 +62,7 @@ const LoginPage = () => {
         error={false}
         errorText={"Ошибка"}
         size={"default"}
+        data-email-input
       ></Input>
 
       <Input
@@ -76,6 +77,7 @@ const LoginPage = () => {
         onIconClick={onIconClick}
         icon={"ShowIcon"}
         ref={passwordRef}
+        data-password-input
       ></Input>
     </>
   );

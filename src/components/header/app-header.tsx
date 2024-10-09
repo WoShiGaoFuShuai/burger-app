@@ -5,10 +5,10 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import cl from "@/components/header/app-header.module.css";
-import HeaderItem from "@/components/header/header-item/header-item";
-import { useAppSelector } from "@/services/hooks";
-import { authSelectors } from "@/services/auth/reducer";
+import cl from "../../components/header/app-header.module.css";
+import HeaderItem from "../../components/header/header-item/header-item";
+import { useAppSelector } from "../../services/hooks";
+import { authSelectors } from "../../services/auth/reducer";
 import { Link } from "react-router-dom";
 
 const AppHeader = () => {

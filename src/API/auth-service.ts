@@ -9,14 +9,14 @@ import {
   LogoutApiResponse,
   UserAuthLogin,
   UpdateUserInfoRequestPayload,
-} from "@/utils/auth";
+} from "../utils/auth";
 import {
   getAccessToken,
   getRefreshToken,
   setRefreshToken,
   setAccessToken,
-} from "@/utils/local-storage";
-import { checkResponse } from "@/utils/auth";
+} from "../utils/local-storage";
+import { checkResponse } from "../utils/auth";
 
 const URL: string = "https://norma.nomoreparties.space/api/";
 const LOGIN: string = "auth/login";

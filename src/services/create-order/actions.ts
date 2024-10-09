@@ -1,7 +1,7 @@
-import OrderService from "@/API/order-service";
+import OrderService from "../../API/order-service";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { OrderData, OrderApiResponse } from "@/API/order-service";
-import { getAccessToken } from "@/utils/local-storage";
+import { OrderData, OrderApiResponse } from "../../API/order-service";
+import { getAccessToken } from "../../utils/local-storage";
 
 export const sendOrder = createAsyncThunk<
   { name: string; order: { number: number } },

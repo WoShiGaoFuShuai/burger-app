@@ -4,14 +4,14 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from "./feed-order-details.module.css";
-import { useAppSelector } from "@/services/hooks";
+import { useAppSelector } from "../../../services/hooks";
 import { useParams, useLocation } from "react-router-dom"; // Добавил useNavigate
-import { ordersFeedAllSelectors } from "@/services/orders-feed-all/reducer";
-import { ingredientsSelectors } from "@/services/ingredients/reducer";
-import { IngredientsData } from "@/types/interface.ingredients";
-import { calculateTotalPrice } from "@/utils/calculate-total-price";
-import { FeedOrder } from "@/types/interface.orders-feed";
-import Loader from "@/components/ui/loader/loader";
+import { ordersFeedAllSelectors } from "../../../services/orders-feed-all/reducer";
+import { ingredientsSelectors } from "../../../services/ingredients/reducer";
+import { IngredientsData } from "../../../types/interface.ingredients";
+import { calculateTotalPrice } from "../../../utils/calculate-total-price";
+import { FeedOrder } from "../../../types/interface.orders-feed";
+import Loader from "../../../components/ui/loader/loader";
 
 const FeedOrderDetails: React.FC = () => {
   const { id: paramsOrderNumber } = useParams<{ id: string }>();

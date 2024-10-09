@@ -1,4 +1,4 @@
-import IngredientsService from "@/API/ingredients-service";
+import IngredientsService from "../../API/ingredients-service";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const loadIngredients = createAsyncThunk(

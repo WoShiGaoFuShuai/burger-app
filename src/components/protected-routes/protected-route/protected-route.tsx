@@ -1,6 +1,6 @@
 import React from "react";
-import { authSelectors } from "@/services/auth/reducer";
-import { useAppSelector } from "@/services/hooks";
+import { authSelectors } from "../../../services/auth/reducer";
+import { useAppSelector } from "../../../services/hooks";
 import { Navigate, useLocation } from "react-router-dom";
 
 interface ProtectedRouteProps {

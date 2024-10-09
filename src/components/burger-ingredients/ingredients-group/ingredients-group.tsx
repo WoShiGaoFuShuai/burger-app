@@ -2,10 +2,10 @@ import React, { forwardRef } from "react";
 
 import cl from "./ingredients-group.module.css";
 import IngredientItem from "../ingredient-item/ingredient-item";
-import { IngredientsData } from "@/types/interface.ingredients";
-import { addItemShowInModal } from "@/services/item-show-in-modal/reducer";
-import { useAppDispatch } from "@/services/hooks";
-import { setSsItem } from "@/utils/session-storage";
+import { IngredientsData } from "../../../types/interface.ingredients";
+import { addItemShowInModal } from "../../../services/item-show-in-modal/reducer";
+import { useAppDispatch } from "../../../services/hooks";
+import { setSsItem } from "../../../utils/session-storage";
 
 interface IngredientsGroupProps {
   array: IngredientsData[];

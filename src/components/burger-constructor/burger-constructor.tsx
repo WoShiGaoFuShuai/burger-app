@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import cl from "./burger-constructor.module.css";
-import ConstructorSubmit from "@/components/burger-constructor/constructor-submit/constructor-submit";
-import ConstructorElements from "@/components/burger-constructor/constructor-elements/constructor-elements";
-import Modal from "@/components/modal/modal";
-import OrderDetails from "@/components/modal/order-details/order-details";
+import ConstructorSubmit from "../burger-constructor/constructor-submit/constructor-submit";
+import ConstructorElements from "../burger-constructor/constructor-elements/constructor-elements";
+import Modal from "../modal/modal";
+import OrderDetails from "../modal/order-details/order-details";
 import Loader from "../ui/loader/loader";
-import { useAppSelector, useAppDispatch } from "@/services/hooks";
+import { useAppSelector, useAppDispatch } from "../../services/hooks";
 import {
   clearOrder,
   orderInfoSelectors,
-} from "@/services/create-order/reducer";
+} from "../../services/create-order/reducer";
 
 const BurgerConstructor = () => {
   const [isShowModal, setIsShowModal] = useState(false);

@@ -1,4 +1,4 @@
-import { IngredientsData } from "@/types/interface.ingredients";
+import { IngredientsData } from "../types/interface.ingredients";
 
 export const calculateTotalPrice = (
   allIngredients: IngredientsData[],

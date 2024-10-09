@@ -1,12 +1,12 @@
-import { IngredientsData } from "@/types/interface.ingredients";
+import { IngredientsData } from "../../types/interface.ingredients";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "@/services/store";
+import { RootState } from "../../services/store";
 
 interface ItemShowModalState {
   itemShowInModal: IngredientsData | null;
 }
 
-const initialState: ItemShowModalState = {
+export const initialState: ItemShowModalState = {
   itemShowInModal: null,
 };
 
