@@ -87,6 +87,7 @@ const ConstructorElementDraggable: React.FC<
       key={burgerConstructorIngredient.key}
       ref={ref}
       draggable
+      data-constructor-draggable
     >
       <DragIcon type="primary" />
       <ConstructorElement

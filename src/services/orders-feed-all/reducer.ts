@@ -13,7 +13,7 @@ interface FeedState extends MessageFeedOrders {
   connectionError: string | null;
 }
 
-const initialState: FeedState = {
+export const initialState: FeedState = {
   status: "",
   orders: [],
   success: false,

@@ -27,9 +27,16 @@ const EmptyBun: React.FC<EmptyBunProps> = ({ type, elementType }) => {
   return (
     <div className={cl.empty_bun} style={{ borderRadius, outline }}>
       {type === "middle" ? (
-        <p className="text text_type_main-small">Добавьте начинку и соус</p>
+        <p
+          data-constructor-emptyBun-middle
+          className="text text_type_main-small"
+        >
+          Добавьте начинку и соус
+        </p>
       ) : (
-        <p className="text text_type_main-small">Добавьте булочку</p>
+        <p data-constructor-emptyBun-side className="text text_type_main-small">
+          Добавьте булочку
+        </p>
       )}
     </div>
   );

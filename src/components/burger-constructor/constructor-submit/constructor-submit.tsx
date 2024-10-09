@@ -68,6 +68,7 @@ const ConstructorSubmit: React.FC<ConstructorSubmitProps> = ({
         type="primary"
         size="large"
         disabled={disabled}
+        data-create-order-btn
       >
         Оформить заказ
       </Button>

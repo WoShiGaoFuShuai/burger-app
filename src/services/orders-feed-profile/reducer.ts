@@ -12,7 +12,7 @@ interface FeedProfileState extends MessageFeedOrders {
   connectionError: string | null;
 }
 
-const initialState: FeedProfileState = {
+export const initialState: FeedProfileState = {
   status: "",
   orders: [],
   success: false,

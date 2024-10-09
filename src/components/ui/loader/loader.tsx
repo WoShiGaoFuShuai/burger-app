@@ -22,7 +22,7 @@ const Loader: React.FC<LoaderProps> = ({
     throw new Error('The element with ID "root" was not found in the DOM.');
 
   return createPortal(
-    <div className={cl.wrapper}>
+    <div className={cl.wrapper} data-loader>
       <div className={cl.content}>
         <BallTriangle
           height={100}

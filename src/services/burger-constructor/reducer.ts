@@ -12,7 +12,7 @@ export interface BurgerConstructorState {
   ingredients: IngredientsDataWithKey[];
 }
 
-const initialState: BurgerConstructorState = {
+export const initialState: BurgerConstructorState = {
   bun: null,
   ingredients: [],
 };

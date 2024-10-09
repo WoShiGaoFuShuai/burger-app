@@ -18,11 +18,11 @@ const Modal: React.FC<ModalProps> = ({ title, onClose, children }) => {
 
   return createPortal(
     <ModalOverlay onClose={onClose}>
-      <div className={cl.modal}>
+      <div className={cl.modal} data-modal>
         <div className={cl.header}>
           <p className="text_type_main-large">{title}</p>
 
-          <div className={cl.icon}>
+          <div className={cl.icon} data-modal-close-btn>
             <CloseIcon onClick={onClose} type="primary" />
           </div>
         </div>

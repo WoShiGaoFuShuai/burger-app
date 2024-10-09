@@ -42,6 +42,7 @@ const IngredientItem: React.FC<IngredientItemProps> = ({
       className={cl.ingredient__item}
       ref={dragRef}
       style={{ border }}
+      data-ingredient-item
     >
       {item.__v > 0 && (
         <Counter count={item.__v} size="default" extraClass="m-1" />
@@ -51,7 +52,9 @@ const IngredientItem: React.FC<IngredientItemProps> = ({
         <p className="text text_type_digits-default">{item.price}</p>
         <CurrencyIcon type="primary" />
       </div>
-      <p className={cl.ingredient__name}>{item.name}</p>
+      <p data-ingredient-item-name className={cl.ingredient__name}>
+        {item.name}
+      </p>
     </li>
   );
 };

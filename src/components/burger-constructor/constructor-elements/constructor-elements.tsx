@@ -46,11 +46,15 @@ const ConstructorElements = () => {
   }, [isOver]);
 
   return (
-    <ul ref={dropTarget} className={cl.items__wrapper}>
+    <ul
+      ref={dropTarget}
+      className={cl.items__wrapper}
+      data-constructor-items-wrapper
+    >
       {burgerConstructorIngredients.bun === null ? (
         <EmptyBun type="top" elementType={draggedItemType} />
       ) : (
-        <li>
+        <li data-constructor-el-top>
           <ConstructorElement
             type="top"
             isLocked={true}
@@ -78,7 +82,7 @@ const ConstructorElements = () => {
       {burgerConstructorIngredients.bun === null ? (
         <EmptyBun elementType={draggedItemType} type="bottom" />
       ) : (
-        <li>
+        <li data-constructor-el-bottom>
           <ConstructorElement
             type="bottom"
             isLocked={true}

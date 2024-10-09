@@ -12,7 +12,7 @@ export interface IngredientsState {
   previousBun: null | IngredientsData;
 }
 
-const initialState: IngredientsState = {
+export const initialState: IngredientsState = {
   ingredients: [],
   error: null,
   loading: false,

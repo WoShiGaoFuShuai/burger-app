@@ -62,6 +62,7 @@ const LoginPage = () => {
         error={false}
         errorText={"Ошибка"}
         size={"default"}
+        data-email-input
       ></Input>
 
       <Input
@@ -76,6 +77,7 @@ const LoginPage = () => {
         onIconClick={onIconClick}
         icon={"ShowIcon"}
         ref={passwordRef}
+        data-password-input
       ></Input>
     </>
   );

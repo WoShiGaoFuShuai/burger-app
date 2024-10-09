@@ -6,7 +6,7 @@ interface ItemShowModalState {
   itemShowInModal: IngredientsData | null;
 }
 
-const initialState: ItemShowModalState = {
+export const initialState: ItemShowModalState = {
   itemShowInModal: null,
 };
 
