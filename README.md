@@ -1,6 +1,6 @@
 # Project DEMO
 
-https://vercel.com/woshigaofushuais-projects/burger-app/DUDGe6pfTRHnM48pEkzyw4wXPJff
+https://burger-app-hazel.vercel.app/
 
 ## Available Scripts
 
